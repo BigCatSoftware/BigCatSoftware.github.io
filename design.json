@@ -1,0 +1,488 @@
+{
+    "designSystem": {
+      "name": "Bold Modern Portfolio System",
+      "version": "1.0",
+      "description": "A design system characterized by bold typography, vibrant accent colors, asymmetric layouts, and dynamic visual elements",
+      
+      "colorPalette": {
+        "primary": {
+          "accent": "#FF6B35",
+          "accentDescription": "Vibrant coral/orange used for CTAs and emphasis",
+          "alternatives": ["#FF5722", "#FF7043", "#F4511E"]
+        },
+        "neutral": {
+          "dark": "#1A1A1A",
+          "darkDescription": "Deep black for backgrounds and text",
+          "light": "#FFFFFF",
+          "lightDescription": "Pure white for contrast and backgrounds",
+          "gray": "#F5F5F5",
+          "grayDescription": "Light gray for secondary backgrounds"
+        },
+        "usage": {
+          "backgrounds": ["dark", "light", "split-screen combinations"],
+          "text": ["dark on light", "light on dark", "accent for emphasis"],
+          "buttons": ["accent background with white text"]
+        }
+      },
+      
+      "typography": {
+        "hierarchy": {
+          "hero": {
+            "weight": "800-900",
+            "style": "Extra bold, condensed or extended",
+            "size": "clamp(48px, 8vw, 120px)",
+            "lineHeight": "0.9-1.1",
+            "characteristics": ["All caps or title case", "High impact", "Letter spacing: tight to normal"]
+          },
+          "headline": {
+            "weight": "700-800",
+            "size": "clamp(32px, 5vw, 64px)",
+            "lineHeight": "1.1-1.2",
+            "characteristics": ["Bold and commanding", "Mixed case acceptable"]
+          },
+          "subheadline": {
+            "weight": "400-600",
+            "size": "clamp(18px, 2.5vw, 28px)",
+            "lineHeight": "1.4-1.6",
+            "characteristics": ["Regular to semi-bold", "Readable and clear"]
+          },
+          "body": {
+            "weight": "400",
+            "size": "16-18px",
+            "lineHeight": "1.5-1.7",
+            "characteristics": ["Clean sans-serif", "Comfortable reading"]
+          },
+          "script": {
+            "weight": "400",
+            "style": "Cursive/handwritten",
+            "usage": "Accent text, small decorative phrases",
+            "size": "clamp(16px, 2vw, 24px)"
+          }
+        },
+        "fontPairings": {
+          "option1": {
+            "display": "Modern sans-serif, geometric or condensed",
+            "body": "Clean sans-serif with good readability",
+            "accent": "Handwritten or script for personality"
+          },
+          "examples": ["Montserrat/Open Sans", "Bebas Neue/Lato", "Oswald/Roboto"]
+        },
+        "textTreatments": {
+          "emphasis": ["Accent color on key words/phrases", "Bold weight changes", "Size variations within headlines"],
+          "effects": ["Tight letter spacing for impact", "Normal to wide spacing for elegance", "Mixed typography styles in single headline"]
+        }
+      },
+      
+      "layout": {
+        "structure": {
+          "grid": "12-column responsive grid",
+          "breakpoints": {
+            "mobile": "320px-768px",
+            "tablet": "768px-1024px",
+            "desktop": "1024px+"
+          },
+          "patterns": [
+            {
+              "name": "Asymmetric Split",
+              "description": "60/40 or 70/30 split with content and visuals",
+              "usage": "Hero sections, feature highlights"
+            },
+            {
+              "name": "Diagonal Flow",
+              "description": "Content arranged in diagonal or Z-pattern",
+              "usage": "Multi-section layouts, storytelling"
+            },
+            {
+              "name": "Card Grid",
+              "description": "Responsive grid of cards with consistent spacing",
+              "usage": "Portfolio items, project showcases"
+            }
+          ]
+        },
+        "spacing": {
+          "scale": "8px base unit",
+          "values": ["8px", "16px", "24px", "32px", "48px", "64px", "96px", "128px"],
+          "usage": {
+            "tight": "8-16px for related elements",
+            "comfortable": "24-48px for section padding",
+            "generous": "64-128px for major section breaks"
+          }
+        },
+        "composition": {
+          "principles": [
+            "Asymmetric balance over symmetric",
+            "Generous whitespace around key elements",
+            "Overlapping elements for depth",
+            "Diagonal lines and arrows for flow",
+            "Breaking grid boundaries intentionally"
+          ],
+          "visualFlow": [
+            "Z-pattern for left-to-right reading",
+            "Arrows and connecting lines between elements",
+            "Progressive disclosure of content",
+            "Clear visual hierarchy with size and color"
+          ]
+        }
+      },
+      
+      "components": {
+        "buttons": {
+          "primary": {
+            "background": "accent color",
+            "text": "white",
+            "padding": "16px 32px",
+            "borderRadius": "4px-8px",
+            "fontSize": "14-16px",
+            "fontWeight": "600-700",
+            "textTransform": "uppercase or title case",
+            "hover": "Darken 10%, scale 1.02, or add shadow"
+          },
+          "secondary": {
+            "background": "transparent",
+            "border": "2px solid accent or white",
+            "text": "accent or white",
+            "padding": "14px 30px",
+            "hover": "Fill with accent color, white text"
+          },
+          "ghost": {
+            "background": "transparent",
+            "text": "accent color",
+            "underline": "optional on hover",
+            "hover": "Shift color slightly or add arrow"
+          }
+        },
+        "cards": {
+          "structure": {
+            "background": "white or dark",
+            "border": "none or subtle 1px",
+            "borderRadius": "8px-16px",
+            "padding": "24-32px",
+            "shadow": "0 4px 16px rgba(0,0,0,0.08) on light, 0 4px 16px rgba(255,255,255,0.05) on dark"
+          },
+          "content": [
+            "Image or icon at top (optional)",
+            "Title (headline typography)",
+            "Description (body typography)",
+            "CTA button or link at bottom"
+          ],
+          "hover": "Lift with shadow increase, scale 1.02, or accent border"
+        },
+        "navigation": {
+          "header": {
+            "position": "fixed or sticky top",
+            "background": "white, dark, or transparent with blur",
+            "height": "60-80px",
+            "layout": "Logo left, nav center/right, CTA button right",
+            "style": "Minimal, clean, with accent color on active/hover"
+          },
+          "menu": {
+            "items": "4-7 primary links",
+            "typography": "14-16px, 600 weight, uppercase or title case",
+            "spacing": "24-40px between items",
+            "active": "Accent color, underline, or bold"
+          },
+          "mobile": {
+            "toggle": "Hamburger icon",
+            "menu": "Full screen overlay or slide-in panel",
+            "background": "Dark or white with overlay"
+          }
+        },
+        "imageContainers": {
+          "treatments": [
+            "Rounded corners (8-16px)",
+            "Colored overlays with blend modes",
+            "Diagonal or angled edges",
+            "Overflow visible for layering",
+            "Border frames with accent colors"
+          ],
+          "integration": [
+            "Overlapping text and images",
+            "Images breaking out of containers",
+            "Decorative graphic elements around images",
+            "Asymmetric positioning"
+          ]
+        },
+        "decorativeElements": {
+          "types": [
+            {
+              "name": "Geometric Shapes",
+              "examples": ["Circles", "Squares", "Triangles", "Lines"],
+              "usage": "Background elements, connectors, accents",
+              "style": "Filled with accent color or outlined"
+            },
+            {
+              "name": "Icons",
+              "style": "Line icons or simple filled",
+              "size": "24-48px",
+              "color": "Accent or brand colors",
+              "usage": "Feature highlights, social media, decorative accents"
+            },
+            {
+              "name": "Arrows & Connectors",
+              "style": "Hand-drawn or geometric",
+              "purpose": "Guide eye flow, connect related elements",
+              "color": "Dark or accent"
+            },
+            {
+              "name": "Emoji/Illustrations",
+              "style": "Modern, friendly, minimal",
+              "usage": "Add personality, break up text",
+              "placement": "Scattered asymmetrically"
+            }
+          ]
+        }
+      },
+      
+      "sections": {
+        "hero": {
+          "layout": "Full viewport height or 70-80vh",
+          "structure": [
+            "Large headline with mixed typography",
+            "Supporting subheadline",
+            "Primary CTA button",
+            "Hero image or video background",
+            "Decorative elements"
+          ],
+          "variations": [
+            "Split screen: text left, visual right",
+            "Centered with background visual",
+            "Asymmetric with overlapping elements",
+            "Diagonal division"
+          ],
+          "backgroundOptions": [
+            "Solid color (light or dark)",
+            "Image with overlay",
+            "Gradient",
+            "Video background"
+          ]
+        },
+        "about": {
+          "layout": "2-column on desktop, stacked on mobile",
+          "content": [
+            "Profile image with creative framing",
+            "Bio text with personality",
+            "Key stats or highlights",
+            "Skills or values",
+            "Secondary CTA"
+          ],
+          "style": "Personal, warm, authentic with visual interest"
+        },
+        "portfolio": {
+          "layout": "Grid (2-3 columns) or masonry",
+          "cardStructure": [
+            "Project thumbnail",
+            "Project title",
+            "Brief description",
+            "Tags or categories",
+            "View project link/button"
+          ],
+          "hover": "Reveal more info, scale, or show overlay",
+          "filters": "Optional category tabs or filters"
+        },
+        "testimonials": {
+          "layout": "Carousel, grid, or staggered",
+          "content": [
+            "Quote text",
+            "Author name",
+            "Author title/company",
+            "Optional photo",
+            "Optional rating"
+          ],
+          "style": "Cards with subtle shadows, serif for quotes optional"
+        },
+        "contact": {
+          "layout": "Form and info side by side or stacked",
+          "elements": [
+            "Contact form (name, email, message)",
+            "Contact information (email, phone, social)",
+            "CTA headline",
+            "Submit button"
+          ],
+          "style": "Clean, accessible, with clear labels"
+        },
+        "footer": {
+          "layout": "Multi-column or single row",
+          "content": [
+            "Logo or name",
+            "Navigation links",
+            "Social media icons",
+            "Copyright",
+            "Optional newsletter signup"
+          ],
+          "style": "Dark background common, minimal, organized"
+        }
+      },
+      
+      "interactions": {
+        "hover": [
+          "Color transitions (0.3s ease)",
+          "Scale transforms (1.02-1.05)",
+          "Shadow depth changes",
+          "Underline reveals",
+          "Icon animations"
+        ],
+        "scroll": [
+          "Parallax effects on backgrounds",
+          "Fade in animations for sections",
+          "Sticky navigation",
+          "Progress indicators",
+          "Reveal animations (slide, fade, scale)"
+        ],
+        "click": [
+          "Button press effect (scale 0.98)",
+          "Ripple effects",
+          "Page transitions",
+          "Modal overlays",
+          "Smooth scroll to sections"
+        ],
+        "loading": [
+          "Skeleton screens",
+          "Animated loaders with brand colors",
+          "Progressive image loading",
+          "Fade in content"
+        ]
+      },
+      
+      "responsiveStrategy": {
+        "approach": "Mobile-first design",
+        "adaptations": {
+          "mobile": [
+            "Single column layouts",
+            "Stacked sections",
+            "Simplified navigation (hamburger)",
+            "Touch-optimized buttons (min 44px)",
+            "Reduced decorative elements"
+          ],
+          "tablet": [
+            "2-column grids where appropriate",
+            "Maintained visual hierarchy",
+            "Optimized image sizes",
+            "Adjusted typography scale"
+          ],
+          "desktop": [
+            "Multi-column layouts",
+            "Full decorative elements",
+            "Hover interactions",
+            "Asymmetric compositions",
+            "Generous spacing"
+          ]
+        },
+        "typography": {
+          "mobile": "Base 16px, scale down hero by 40-50%",
+          "tablet": "Base 16px, scale down hero by 20-30%",
+          "desktop": "Base 16-18px, full hero size"
+        },
+        "spacing": {
+          "mobile": "Reduce by 30-50%",
+          "tablet": "Reduce by 15-25%",
+          "desktop": "Full spacing scale"
+        }
+      },
+      
+      "brandPersonality": {
+        "attributes": [
+          "Bold and confident",
+          "Modern and innovative",
+          "Personal and authentic",
+          "Professional yet approachable",
+          "Energetic and dynamic"
+        ],
+        "visualExpression": [
+          "Strong typography hierarchy",
+          "Vibrant accent colors",
+          "Generous whitespace",
+          "Playful decorative elements",
+          "High-quality imagery",
+          "Asymmetric balance"
+        ],
+        "tone": {
+          "headlines": "Bold, action-oriented, clear",
+          "body": "Conversational, clear, professional",
+          "CTAs": "Direct, motivating, benefit-focused"
+        }
+      },
+      
+      "implementationNotes": {
+        "technologies": [
+          "HTML5 semantic markup",
+          "CSS Grid and Flexbox",
+          "CSS custom properties for theming",
+          "Responsive images with srcset",
+          "Intersection Observer for scroll animations",
+          "Transform and transition for interactions"
+        ],
+        "performance": [
+          "Optimize images (WebP, lazy loading)",
+          "Minimize CSS and JS",
+          "Use system fonts or limit custom fonts to 2-3",
+          "Defer non-critical resources",
+          "Mobile-first CSS"
+        ],
+        "accessibility": [
+          "Semantic HTML",
+          "ARIA labels where needed",
+          "Keyboard navigation",
+          "Sufficient color contrast (WCAG AA minimum)",
+          "Focus indicators",
+          "Alt text for images",
+          "Form labels"
+        ]
+      },
+      
+      "portfolioSpecificGuidelines": {
+        "heroSection": {
+          "formula": "Name + Title/Specialty + Unique Value Proposition",
+          "example": "[YOUR NAME] in bold hero typography, [YOUR ROLE] in subheadline, brief compelling statement about what makes you unique",
+          "visualTreatment": "Professional photo or relevant imagery, accent color highlights on key words"
+        },
+        "aboutSection": {
+          "content": [
+            "Professional background summary",
+            "Education highlights",
+            "Key skills visualization",
+            "Personal interests/values (optional)",
+            "Download resume CTA"
+          ],
+          "dataIntegration": "Extract from resume PDF, LinkedIn profile for consistency"
+        },
+        "projectsSection": {
+          "projectCardInfo": [
+            "Project title",
+            "Technologies used",
+            "Brief description",
+            "Link to live demo or GitHub",
+            "Thumbnail/screenshot"
+          ],
+          "sourceData": "Extract from GitHub repositories, filter by stars/activity, showcase top 6-9 projects"
+        },
+        "skillsSection": {
+          "presentation": [
+            "Categorized skill groups (Languages, Data Science)",
+            "Visual representation (bars, icons, tags)",
+            "Proficiency indicators (optional)"
+          ],
+          "extraction": "Compile from resume, LinkedIn, GitHub language statistics"
+        },
+        "educationSection": {
+          "content": [
+            "Degree and institution",
+            "Graduation date",
+            "GPA or honors (if notable)",
+            "Relevant coursework",
+            "Transcript link (optional)"
+          ],
+          "styling": "Card layout or timeline, diploma imagery optional"
+        },
+        "contactSection": {
+          "elements": [
+            "Email address",
+            "LinkedIn profile link",
+            "GitHub profile link",
+            "Optional: Twitter, personal social media",
+            "Contact form as alternative"
+          ],
+          "CTAFocus": "Make it easy to connect, clear next steps"
+        }
+      }
+    }
+  }
