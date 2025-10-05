@@ -49,7 +49,7 @@ const About = () => {
           <div className="about-profile">
             <div className="profile-image-container">
               <img 
-                src="./tiger_graduation.png" 
+                src="/tiger_graduation.png" 
                 alt="Tiger Schueler at University of Washington Tacoma graduation ceremony"
                 className="profile-image"
               />
