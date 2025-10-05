@@ -51,7 +51,7 @@ const Hero = ({ onNavigate }) => {
             <div className="hero-image-container">
               <div className="hero-image">
                 <img 
-                  src="/tiger_graduation_square_crop.jpg" 
+                  src="./tiger_graduation_square_crop.jpg" 
                   alt="Tiger Schueler graduation photo" 
                   className="profile-image"
                 />

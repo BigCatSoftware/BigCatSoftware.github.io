@@ -135,7 +135,7 @@ const Education = () => {
           <div className="diploma-container">
             <div className="diploma-image">
               <img 
-                src="/diploma_image.png" 
+                src="./diploma_image.png" 
                 alt="Tiger Schueler University of Washington Diploma" 
                 className="diploma-img"
               />
