@@ -31,13 +31,10 @@ const Education = () => {
         'Data Structures and Algorithms',
         'Database Systems',
         'Software Engineering',
-        'Machine Learning',
         'Statistics and Probability',
         'Linear Algebra',
         'Discrete Mathematics',
-        'Computer Networks',
-        'Operating Systems',
-        'Web Development'
+        'Operating Systems'
       ]
     }
   ]
