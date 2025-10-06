@@ -5,6 +5,7 @@
   background: linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%);
   position: relative;
   overflow: hidden;
+  padding-top: 80px;
 }
 
 .hero-container {
@@ -238,11 +239,14 @@
   50% { opacity: 0.4; }
 }
 
+.scroll-indicator-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 32px;
+}
+
 .scroll-indicator {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -260,7 +264,7 @@
 .scroll-indicator:hover {
   color: #FF6B35;
   background: rgba(255, 107, 53, 0.1);
-  transform: translateX(-50%) translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .scroll-arrow {
@@ -279,13 +283,17 @@
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-  40% { transform: translateX(-50%) translateY(-10px); }
-  60% { transform: translateX(-50%) translateY(-5px); }
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
 }
 
 /* Mobile Styles */
 @media (max-width: 768px) {
+  .hero {
+    padding-top: 70px;
+  }
+
   .hero-content {
     grid-template-columns: 1fr;
     gap: 48px;
@@ -308,16 +316,22 @@
   .hero-stats {
     justify-content: center;
     gap: 32px;
+    margin-bottom: 32px;
   }
 
   .hero-cta {
     justify-content: center;
+    margin-bottom: 24px;
   }
 
   .btn-primary,
   .btn-secondary {
     padding: 14px 28px;
     font-size: 14px;
+  }
+
+  .scroll-indicator-container {
+    margin-top: 24px;
   }
 }
 
@@ -330,6 +344,7 @@
     flex-direction: column;
     gap: 16px;
     align-items: center;
+    margin-bottom: 40px;
   }
 
   .stat {

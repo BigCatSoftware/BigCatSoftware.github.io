@@ -387,7 +387,7 @@ const Contact = ({ onThemeChange, currentTheme }) => {
     {
       icon: '📍',
       label: 'Location',
-      value: 'Tacoma, WA',
+      value: 'Olympia, WA',
       link: null
     }
   ]

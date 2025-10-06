@@ -6,7 +6,6 @@ const Navigation = ({ activeSection, onNavigate }) => {
 
   const navItems = [
     { id: 'hero', label: 'Home' },
-    { id: 'about', label: 'About' },
     { id: 'projects', label: 'Projects' },
     { id: 'education', label: 'Education' },
     { id: 'contact', label: 'Contact' }

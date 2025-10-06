@@ -6,7 +6,9 @@ const TicTacToe = ({ onGameWin, onThemeChange, currentTheme, onPlayClickSound })
   const [gameStatus, setGameStatus] = useState('playing') // 'playing', 'won', 'draw'
   const [winner, setWinner] = useState(null)
   const [showThemeOption, setShowThemeOption] = useState(false)
+  const [showVictoryCelebration, setShowVictoryCelebration] = useState(false)
   const [winCount, setWinCount] = useState(0)
+  const [hasShownFirstWinPopup, setHasShownFirstWinPopup] = useState(false)
   const [isPlayerTurn, setIsPlayerTurn] = useState(true)
   const [isThinking, setIsThinking] = useState(false)
 
@@ -14,6 +16,7 @@ const TicTacToe = ({ onGameWin, onThemeChange, currentTheme, onPlayClickSound })
   useEffect(() => {
     // Reset win count to 0
     setWinCount(0)
+    setHasShownFirstWinPopup(false)
     localStorage.removeItem('tic-tac-toe-wins')
     
     // Reset theme to default when win count is 0
@@ -128,10 +131,20 @@ const TicTacToe = ({ onGameWin, onThemeChange, currentTheme, onPlayClickSound })
     if (gameWinner) {
       setWinner(gameWinner)
       setGameStatus('won')
-      setShowThemeOption(true)
       const newWinCount = winCount + 1
       setWinCount(newWinCount)
       localStorage.setItem('tic-tac-toe-wins', newWinCount.toString())
+      
+      // Show UW theme popup only on first win
+      if (newWinCount === 1 && !hasShownFirstWinPopup) {
+        setShowThemeOption(true)
+        setHasShownFirstWinPopup(true)
+      }
+      
+      // Show special victory celebration on 3rd win
+      if (newWinCount === 3) {
+        setShowVictoryCelebration(true)
+      }
       
       // Trigger confetti and sound effects
       if (onGameWin) {
@@ -179,6 +192,7 @@ const TicTacToe = ({ onGameWin, onThemeChange, currentTheme, onPlayClickSound })
     setGameStatus('playing')
     setWinner(null)
     setShowThemeOption(false)
+    setShowVictoryCelebration(false)
     setIsPlayerTurn(true)
     setIsThinking(false)
   }
@@ -269,6 +283,25 @@ const TicTacToe = ({ onGameWin, onThemeChange, currentTheme, onPlayClickSound })
         </div>
       )}
 
+      {showVictoryCelebration && (
+        <div className="victory-celebration">
+          <div className="celebration-message">
+            <h4>🏆 VICTORY MASTER! 🏆</h4>
+            <p>🎉 You've achieved 3 wins! 🎉</p>
+            <p>🎵 🎶 🎵</p>
+            <div className="celebration-emoji">
+              🎊🎉🎈🎁🎂🎯🎪🎭🎨🎪🎊
+            </div>
+            <button 
+              className="celebration-button"
+              onClick={() => setShowVictoryCelebration(false)}
+            >
+              🎊 Awesome! 🎊
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="game-controls">
         <button className="reset-button" onClick={resetGame}>
           🔄 New Game
@@ -277,6 +310,7 @@ const TicTacToe = ({ onGameWin, onThemeChange, currentTheme, onPlayClickSound })
           className="reset-stats-button" 
           onClick={() => {
             setWinCount(0)
+            setHasShownFirstWinPopup(false)
             localStorage.removeItem('tic-tac-toe-wins')
             // Reset theme to default when resetting stats
             if (onThemeChange) {

@@ -342,6 +342,170 @@
   transform: translateY(0);
 }
 
+.victory-celebration {
+  margin: 1.5rem 0;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 8%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.victory-celebration::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  right: -50px;
+  bottom: -50px;
+  background: 
+    radial-gradient(circle at 20% 20%, #ff6b6b 2px, transparent 2px),
+    radial-gradient(circle at 80% 20%, #ffd93d 2px, transparent 2px),
+    radial-gradient(circle at 20% 80%, #4ecdc4 2px, transparent 2px),
+    radial-gradient(circle at 80% 80%, #45b7d1 2px, transparent 2px),
+    radial-gradient(circle at 50% 50%, #96ceb4 2px, transparent 2px);
+  background-size: 50px 50px, 60px 60px, 40px 40px, 70px 70px, 30px 30px;
+  animation: confettiFall 3s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(-100vh) rotate(0deg); }
+  100% { transform: translateY(100vh) rotate(360deg); }
+}
+
+.victory-celebration::after {
+  content: '🎊🎉🎈🎁🎂🎯🎪🎭🎨🎪🎊🎊🎉🎈🎁🎂🎯🎪🎭🎨🎪🎊';
+  position: absolute;
+  top: -100px;
+  left: 0;
+  right: 0;
+  font-size: 2rem;
+  animation: confettiBurst 4s ease-out infinite;
+  pointer-events: none;
+  z-index: 1;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@keyframes confettiBurst {
+  0% { 
+    transform: translateY(-100px) scale(0.5);
+    opacity: 0;
+  }
+  20% { 
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  80% { 
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(100px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.celebration-message {
+  background: linear-gradient(135deg, #ff6b6b, #ffd93d, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+  background-size: 400% 400%;
+  border-radius: 8%;
+  padding: 2rem;
+  box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
+  animation: victoryDance 3s ease-in-out infinite, rainbowShift 4s ease-in-out infinite;
+  text-align: center;
+  transform-origin: center center;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+@keyframes victoryDance {
+  0%, 100% { 
+    transform: translateZ(0) scale(1) rotate(0deg);
+  }
+  25% { 
+    transform: translateZ(0) scale(1.05) rotate(1deg);
+  }
+  50% { 
+    transform: translateZ(0) scale(1.1) rotate(0deg);
+  }
+  75% { 
+    transform: translateZ(0) scale(1.05) rotate(-1deg);
+  }
+}
+
+@keyframes rainbowShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.celebration-message h4 {
+  color: #fff;
+  margin: 0 0 1rem 0;
+  font-size: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  animation: textBounce 1s ease-in-out infinite;
+}
+
+@keyframes textBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.celebration-message p {
+  color: #fff;
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.celebration-emoji {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  animation: emojiFloat 2s ease-in-out infinite;
+}
+
+@keyframes emojiFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.celebration-button {
+  background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 12px rgba(255, 107, 107, 0.4);
+  margin-top: 1rem;
+  animation: buttonPulse 2s ease-in-out infinite;
+}
+
+@keyframes buttonPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.celebration-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(255, 107, 107, 0.6);
+  background: linear-gradient(45deg, #ff5252, #ffeb3b);
+}
+
 .game-controls {
   margin: 1.5rem 0;
   position: relative;

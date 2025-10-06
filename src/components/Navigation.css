@@ -60,33 +60,6 @@
   color: #FF6B35;
 }
 
-.nav-item-active::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: #FF6B35;
-  transform: scaleX(1);
-  transition: transform 0.3s ease;
-}
-
-.nav-item::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: #FF6B35;
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-
-.nav-item:hover::after {
-  transform: scaleX(1);
-}
 
 .nav-cta {
   flex-shrink: 0;
@@ -109,7 +82,6 @@
 .nav-github-btn:hover {
   background: #E55A2B;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
 }
 
 .mobile-menu-toggle {

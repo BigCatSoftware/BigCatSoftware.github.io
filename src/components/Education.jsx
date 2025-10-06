@@ -20,7 +20,7 @@ const Education = () => {
       minor: 'Minor in Mathematics',
       graduationDate: '2025',
       gpa: '3.6',
-      location: 'Tacoma, WA',
+      location: 'Olympia, WA',
       highlights: [
         'Strong focus on backend technologies (Java, Python)',
         'SQL and database design expertise',
@@ -41,18 +41,18 @@ const Education = () => {
 
   const experience = [
     {
-      name: 'U.S. Navy Veteran',
-      issuer: 'United States Navy',
-      date: '2018-2022',
-      description: 'Secret clearance (current, eligible for reactivation). Leadership experience with proven track record of team management and problem-solving skills.',
-      icon: '🛡️'
-    },
-    {
       name: 'Mathnasium Lead Instructor',
       issuer: 'Mathnasium Learning Centers',
       date: '2023-2025',
       description: 'Led mathematics instruction for students of all ages. Developed curriculum and mentored junior instructors while maintaining high student success rates.',
       icon: '📚'
+    },
+    {
+      name: 'U.S. Navy Veteran',
+      issuer: 'United States Navy',
+      date: '2018-2022',
+      description: 'Secret clearance (current, eligible for reactivation). Leadership experience with proven track record of team management and problem-solving skills.',
+      icon: '🛡️'
     }
   ]
 

@@ -4,7 +4,6 @@ import './App.css'
 // Components
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
-import About from './components/About'
 import Projects from './components/Projects'
 import Education from './components/Education'
 import Contact from './components/Contact'
@@ -16,7 +15,7 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'projects', 'education', 'contact']
+      const sections = ['hero', 'projects', 'education', 'contact']
       const scrollPosition = window.scrollY + 100
 
       for (const section of sections) {
@@ -69,7 +68,6 @@ function App() {
       
       <main>
         <Hero onNavigate={scrollToSection} />
-        <About />
         <Projects />
         <Education />
         <Contact onThemeChange={handleThemeChange} currentTheme={currentTheme} />

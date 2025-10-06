@@ -14,9 +14,15 @@ const Hero = ({ onNavigate }) => {
               U.S. Navy Veteran • Computer Science Graduate
             </h2>
             <p className="hero-description">
-              Software engineer, full-stack developer, and data scientist with expertise in modern web technologies, 
-              statistical analysis, and mathematical modeling. Bringing analytical problem-solving 
-              skills and leadership experience from Navy service.
+              I'm a U.S. Navy veteran and a recent graduate from the 
+              University of Washington Tacoma with a B.S. in Computer Science and Systems 
+              and a Minor in Mathematics.
+            </p>
+            <p className="hero-description">
+              My projects span software engineering, full-stack development, and data science, 
+              with strong foundations in modern web technologies, statistical analysis, and mathematical modeling. 
+              I bring analytical problem-solving skills and leadership experience from my Navy service, 
+              with a proven track record of delivering scalable applications and data-driven insights.
             </p>
             <div className="hero-cta">
               <button 
@@ -64,14 +70,16 @@ const Hero = ({ onNavigate }) => {
             </div>
           </div>
         </div>
-        <button 
-          className="scroll-indicator"
-          onClick={() => onNavigate('about')}
-          aria-label="Scroll to About section"
-        >
-          <div className="scroll-arrow"></div>
-          <span className="scroll-text">Scroll to explore</span>
-        </button>
+        <div className="scroll-indicator-container">
+          <button 
+            className="scroll-indicator"
+            onClick={() => onNavigate('projects')}
+            aria-label="Scroll to Projects section"
+          >
+            <div className="scroll-arrow"></div>
+            <span className="scroll-text">Scroll to explore</span>
+          </button>
+        </div>
       </div>
     </section>
   )
