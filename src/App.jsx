@@ -68,7 +68,7 @@ function App() {
       
       <main>
         <Hero onNavigate={scrollToSection} />
-        <Projects />
+        <Projects currentTheme={currentTheme} />
         <Education />
         <Contact onThemeChange={handleThemeChange} currentTheme={currentTheme} />
       </main>

@@ -239,6 +239,11 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
+  will-change: background, color, transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .square:hover {
@@ -268,11 +273,15 @@
 .square-x {
   color: #e74c3c;
   background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .square-o {
   color: #3498db;
   background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .square-x::before,
@@ -587,6 +596,10 @@
     width: 70px;
     height: 70px;
     font-size: 1.8rem;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
   
   .game-board {
@@ -603,6 +616,10 @@
     width: 60px;
     height: 60px;
     font-size: 1.5rem;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
   
   .game-board {

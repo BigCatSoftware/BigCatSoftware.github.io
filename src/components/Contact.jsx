@@ -18,6 +18,9 @@ const Contact = ({ onThemeChange, currentTheme }) => {
       
       // Trigger confetti
       triggerConfetti()
+    } else if (winner === 'victory-celebration') {
+      // Immediate victory music for mobile
+      playVictorySounds()
     } else if (winner === 'X') {
       // Player won - play sounds and confetti
       playCelebrationSounds()

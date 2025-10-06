@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Projects.css'
 
-const Projects = () => {
+const Projects = ({ currentTheme = 'default' }) => {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -94,30 +94,59 @@ const Projects = () => {
   }, [])
 
   const getTechColor = (tech) => {
-    const colors = {
-      'TypeScript': '#3178C6',
-      'Next.js': '#000000',
-      'Express.js': '#000000',
-      'Python': '#3776AB',
-      'Java': '#ED8B00',
-      'JavaScript': '#F7DF1E',
-      'React': '#61DAFB',
-      'Google Cloud': '#4285F4',
-      'Firebase': '#FFCA28',
-      'C++': '#00599C',
-      'Machine Learning': '#FF6B35',
-      'Cryptography': '#FF6B35',
-      'Graph Theory': '#FF6B35',
-      'Systems Programming': '#FF6B35',
-      'Spring Boot': '#6DB33F',
-      'FastAPI': '#009688',
-      'Vite': '#646CFF',
-      'Microservices': '#FF6B35',
-      'Compiler Design': '#FF6B35',
-      'AST': '#FF6B35',
-      'Parsing': '#FF6B35'
+    if (currentTheme === 'uw') {
+      // UW color palette - diverse colors inspired by UW branding
+      const uwColors = {
+        'TypeScript': '#4B0082', // UW Purple
+        'Next.js': '#8B4513', // UW Gold
+        'Express.js': '#2F4F4F', // Dark Slate Gray
+        'Python': '#4682B4', // Steel Blue
+        'Java': '#8B4513', // UW Gold
+        'JavaScript': '#2F4F4F', // Dark Slate Gray
+        'React': '#4B0082', // UW Purple
+        'Google Cloud': '#4682B4', // Steel Blue
+        'Firebase': '#8B4513', // UW Gold
+        'C++': '#2F4F4F', // Dark Slate Gray
+        'Machine Learning': '#4682B4', // Steel Blue
+        'Cryptography': '#4B0082', // UW Purple
+        'Graph Theory': '#8B4513', // UW Gold
+        'Systems Programming': '#2F4F4F', // Dark Slate Gray
+        'Spring Boot': '#4682B4', // Steel Blue
+        'FastAPI': '#4B0082', // UW Purple
+        'Vite': '#8B4513', // UW Gold
+        'Microservices': '#2F4F4F', // Dark Slate Gray
+        'Compiler Design': '#4682B4', // Steel Blue
+        'AST': '#4B0082', // UW Purple
+        'Parsing': '#8B4513' // UW Gold
+      }
+      return uwColors[tech] || '#4B0082'
+    } else {
+      // Default color palette
+      const colors = {
+        'TypeScript': '#3178C6',
+        'Next.js': '#000000',
+        'Express.js': '#000000',
+        'Python': '#3776AB',
+        'Java': '#ED8B00',
+        'JavaScript': '#F7DF1E',
+        'React': '#61DAFB',
+        'Google Cloud': '#4285F4',
+        'Firebase': '#FFCA28',
+        'C++': '#00599C',
+        'Machine Learning': '#FF6B35',
+        'Cryptography': '#FF6B35',
+        'Graph Theory': '#FF6B35',
+        'Systems Programming': '#FF6B35',
+        'Spring Boot': '#6DB33F',
+        'FastAPI': '#009688',
+        'Vite': '#646CFF',
+        'Microservices': '#FF6B35',
+        'Compiler Design': '#FF6B35',
+        'AST': '#FF6B35',
+        'Parsing': '#FF6B35'
+      }
+      return colors[tech] || '#FF6B35'
     }
-    return colors[tech] || '#FF6B35'
   }
 
   if (loading) {

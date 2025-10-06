@@ -20,7 +20,7 @@ const Education = () => {
       minor: 'Minor in Mathematics',
       graduationDate: '2025',
       gpa: '3.6',
-      location: 'Olympia, WA',
+      location: 'Tacoma, WA',
       highlights: [
         'Strong focus on backend technologies (Java, Python)',
         'SQL and database design expertise',

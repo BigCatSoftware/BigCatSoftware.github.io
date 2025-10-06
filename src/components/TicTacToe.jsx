@@ -144,6 +144,10 @@ const TicTacToe = ({ onGameWin, onThemeChange, currentTheme, onPlayClickSound })
       // Show special victory celebration on 3rd win
       if (newWinCount === 3) {
         setShowVictoryCelebration(true)
+        // Trigger victory music immediately for mobile
+        if (onGameWin) {
+          onGameWin('victory-celebration', newWinCount)
+        }
       }
       
       // Trigger confetti and sound effects
@@ -285,7 +289,15 @@ const TicTacToe = ({ onGameWin, onThemeChange, currentTheme, onPlayClickSound })
 
       {showVictoryCelebration && (
         <div className="victory-celebration">
-          <div className="celebration-message">
+          <div 
+            className="celebration-message"
+            onClick={() => {
+              // Trigger victory music on click for mobile
+              if (onGameWin) {
+                onGameWin('victory-celebration', 3)
+              }
+            }}
+          >
             <h4>🏆 VICTORY MASTER! 🏆</h4>
             <p>🎉 You've achieved 3 wins! 🎉</p>
             <p>🎵 🎶 🎵</p>
