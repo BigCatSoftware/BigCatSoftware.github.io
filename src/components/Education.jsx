@@ -171,7 +171,7 @@ const Education = () => {
 
         <div className="education-cta">
           <a 
-            href="/Tiger_Schueler_Software_Engineer_Resume.pdf"
+            href="/Tiger_Schueler_Software_Engineer_Resume_2.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary"

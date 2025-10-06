@@ -121,8 +121,8 @@ const About = () => {
             Connect on LinkedIn
           </a>
           <a 
-            href="/Tiger_Schueler_Software_Engineer_Resume.pdf"
-            download="Tiger_Schueler_Software_Engineer_Resume.pdf"
+            href="/Tiger_Schueler_Software_Engineer_Resume_2.pdf"
+            download="Tiger_Schueler_Software_Engineer_Resume_2.pdf"
             className="btn-secondary"
           >
             Download Resume
