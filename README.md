@@ -78,7 +78,7 @@ The portfolio follows a comprehensive design system featuring:
 
 ## 📄 Documents
 
-- Resume: `Tiger_Schueler_Software_Engineer_Resume_2.pdf`
+- Resume: `Tiger_Schueler_Software_Engineer_Resume.pdf`
 
 ## 🎯 Key Highlights
 

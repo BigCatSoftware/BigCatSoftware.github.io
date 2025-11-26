@@ -92,7 +92,7 @@ const Footer = () => {
             <h4>Documents</h4>
             <div className="resume-links">
               <a 
-                href="/Tiger_Schueler_Software_Engineer_Resume_2.pdf"
+                href="/Tiger_Schueler_Software_Engineer_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="resume-link"

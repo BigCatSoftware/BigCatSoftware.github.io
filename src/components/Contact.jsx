@@ -402,8 +402,8 @@ const Contact = ({ onThemeChange, currentTheme }) => {
       icon: '📄',
       action: () => {
         const link = document.createElement('a')
-        link.href = '/Tiger_Schueler_Software_Engineer_Resume_2.pdf'
-        link.download = 'Tiger_Schueler_Software_Engineer_Resume_2.pdf'
+        link.href = '/Tiger_Schueler_Software_Engineer_Resume.pdf'
+        link.download = 'Tiger_Schueler_Software_Engineer_Resume.pdf'
         link.click()
       }
     },
