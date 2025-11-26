@@ -8,16 +8,6 @@ const Projects = ({ currentTheme = 'default' }) => {
   // Featured projects based on your GitHub profile
   const featuredProjects = [
     {
-      id: 'policywise-quote-engine',
-      name: 'PolicyWise Quote Engine',
-      description: 'Full-stack insurance quoting platform demonstrating polyglot microservices architecture. Built with Java Spring Boot backend, Python FastAPI risk analyzer, and React + Vite frontend. Features decoupled three-tier architecture, RESTful API design, specialized risk calculation service, and modern development tooling for scalable enterprise applications.',
-      technologies: ['Java', 'Spring Boot', 'Python', 'FastAPI', 'React', 'Vite', 'Microservices'],
-      githubUrl: 'https://github.com/BigCatSoftware/PolicyWise-Quote-Engine',
-      liveUrl: null,
-      image: '/api/placeholder/400/300',
-      featured: true
-    },
-    {
       id: 'sha3-shake-library',
       name: 'SHA3-SHAKE Cryptographic Library',
       description: 'Production-grade implementation of SHA-3 hash functions and SHAKE algorithms following FIPS 202 specification. Features optimized Keccak-f[1600] permutation, CLI interface with file hashing and MAC generation, plus comprehensive NIST test vector validation.',
