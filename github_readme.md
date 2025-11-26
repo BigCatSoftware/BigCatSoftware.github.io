@@ -31,11 +31,6 @@ Currently seeking opportunities in:
 
 ## Featured Projects
 
-### Full-Stack
-
-**[PolicyWise Quote Engine](https://github.com/BigCatSoftware/PolicyWise-Quote-Engine)**  
-Full-stack insurance quoting platform demonstrating **polyglot microservices architecture**. Built with **Java Spring Boot backend**, **Python FastAPI risk analyzer**, and **React + Vite frontend**. Features **decoupled three-tier architecture**, **RESTful API design**, **specialized risk calculation service**, and **modern development tooling** for scalable enterprise applications.
-
 ### Data Science & Mathematical Modeling
 
 **[Markov Chain System Analysis](https://github.com/BigCatSoftware/markov-chain-maze-analysis)**  
