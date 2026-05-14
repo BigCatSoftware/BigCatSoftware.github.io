@@ -1,129 +1,90 @@
-import './Contact.css'
+import { motion } from 'framer-motion'
+import { Mail } from 'lucide-react'
+import GithubMark from './icons/GithubMark'
+import LinkedinMark from './icons/LinkedinMark'
 
-const Contact = () => {
-  const contactInfo = [
-    {
-      icon: '📧',
-      label: 'Email',
-      value: 'tiger.schueler.dev@gmail.com',
-      link: 'mailto:tiger.schueler.dev@gmail.com'
-    },
-    {
-      icon: '💼',
-      label: 'LinkedIn',
-      value: 'linkedin.com/in/tigerschueler',
-      link: 'https://www.linkedin.com/in/tigerschueler/'
-    },
-    {
-      icon: '📁',
-      label: 'GitHub',
-      value: 'github.com/BigCatSoftware',
-      link: 'https://github.com/BigCatSoftware'
-    },
-    {
-      icon: '📍',
-      label: 'Location',
-      value: 'Olympia, WA',
-      link: null
-    }
-  ]
+const links = [
+  {
+    label: 'Email',
+    href: 'mailto:tiger.schueler.dev@gmail.com',
+    Icon: Mail,
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/tigerschueler/',
+    Icon: LinkedinMark,
+  },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/BigCatSoftware',
+    Icon: GithubMark,
+  },
+]
 
-  const quickActions = [
-    {
-      title: 'View Resume',
-      description: 'Download my latest resume',
-      icon: '📄',
-      action: () => {
-        const link = document.createElement('a')
-        link.href = '/Tiger_Schueler_Software_Engineer_Resume.pdf'
-        link.download = 'Tiger_Schueler_Software_Engineer_Resume.pdf'
-        link.click()
-      }
-    },
-    {
-      title: 'GitHub Profile',
-      description: 'Explore my code repositories',
-      icon: '💻',
-      action: () => window.open('https://github.com/BigCatSoftware', '_blank')
-    },
-    {
-      title: 'LinkedIn Profile',
-      description: 'Connect professionally',
-      icon: '🔗',
-      action: () => window.open('https://www.linkedin.com/in/tigerschueler/', '_blank')
-    }
-  ]
+const containerVariants = {
+  hidden: { opacity: 1 },
+  visible: { transition: { staggerChildren: 0.08 } },
+}
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+}
+
+export default function Contact() {
   return (
-    <section id="contact" className="contact">
-      <div className="contact-container">
-        <div className="section-header">
-          <h2 className="section-title">Get In Touch</h2>
-          <p className="section-subtitle">
-            Seeking full-time opportunities in software engineering, full-stack development, and data science
-          </p>
-        </div>
+    <section id="contact" className="bg-bg text-text py-24 md:py-28">
+      <div className="mx-auto max-w-3xl px-6 md:px-8 text-center">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.h2
+            variants={itemVariants}
+            className="font-display font-semibold leading-[1.15] tracking-[-0.01em] text-[clamp(2.5rem,4vw,3.75rem)]"
+          >
+            Get In Touch
+          </motion.h2>
 
-        <div className="contact-content">
-          <div className="contact-info">
-            <div className="contact-intro">
-              <h3>Let's Connect</h3>
-              <p>
-                I'm actively seeking full-time opportunities in software engineering, full-stack development, and data science.
-                With my background in backend development, database design, and leadership experience from the Navy,
-                I'm ready to contribute to your team's success. Let's discuss how I can bring value to your organization.
-              </p>
-            </div>
+          <motion.p
+            variants={itemVariants}
+            className="mt-4 text-lg leading-[1.7] text-text-muted"
+          >
+            For collaborations, hiring conversations, or just to say hello.
+          </motion.p>
 
-            <div className="contact-details">
-              <h4>Contact Information</h4>
-              <div className="contact-list">
-                {contactInfo.map((info, index) => (
-                  <div key={index} className="contact-item">
-                    <div className="contact-icon">{info.icon}</div>
-                    <div className="contact-detail">
-                      <span className="contact-label">{info.label}</span>
-                      {info.link ? (
-                        <a
-                          href={info.link}
-                          target={info.link.startsWith('http') ? '_blank' : '_self'}
-                          rel={info.link.startsWith('http') ? 'noopener noreferrer' : ''}
-                          className="contact-value"
-                        >
-                          {info.value}
-                        </a>
-                      ) : (
-                        <span className="contact-value">{info.value}</span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="quick-actions">
-              <h4>Quick Actions</h4>
-              <div className="actions-grid">
-                {quickActions.map((action, index) => (
-                  <button
-                    key={index}
-                    className="action-card"
-                    onClick={action.action}
-                  >
-                    <div className="action-icon">{action.icon}</div>
-                    <div className="action-content">
-                      <h5>{action.title}</h5>
-                      <p>{action.description}</p>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+          <motion.div
+            variants={itemVariants}
+            className="mt-10 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-center"
+          >
+            {links.map(({ label, href, Icon }) => {
+              const isExternal = href.startsWith('http')
+              return (
+                <a
+                  key={label}
+                  href={href}
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener noreferrer' : undefined}
+                  className="group inline-flex items-center justify-center gap-2 rounded-lg border-2 border-border px-6 py-3 font-medium text-text transition-colors duration-[220ms] hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                >
+                  <Icon
+                    size={18}
+                    aria-hidden="true"
+                    className="transition-transform duration-[220ms] group-hover:-translate-y-0.5"
+                  />
+                  <span>{label}</span>
+                </a>
+              )
+            })}
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   )
 }
-
-export default Contact
