@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Loader2, ShieldCheck } from 'lucide-react'
+import { Download, FileText, Loader2, ShieldCheck } from 'lucide-react'
 import confetti from 'canvas-confetti'
 
 const CREDENTIAL_CODE = '25C9-NTAN-TNRJ'
@@ -195,13 +195,57 @@ export default function Credentials() {
             />
           </motion.div>
 
-          {/* Resume placeholder (wired in commit 13) */}
-          <motion.p
-            variants={itemVariants}
-            className="mt-10 font-mono text-xs uppercase tracking-[0.22em] text-white/70"
-          >
-            Resume embed and download arrives in commit 13.
-          </motion.p>
+          {/* Resume: distinctly secondary section below the widget */}
+          <motion.div variants={itemVariants} className="mt-16">
+            {/* Desktop: inline PDF via object/iframe */}
+            <div className="hidden md:block">
+              <object
+                data="/Tiger_Schueler_Software_Engineer_Resume.pdf"
+                type="application/pdf"
+                className="h-[640px] w-full rounded-xl border border-surface-2 bg-surface shadow-soft"
+                aria-label="Tiger Schueler's resume, embedded as a PDF."
+              >
+                <iframe
+                  src="/Tiger_Schueler_Software_Engineer_Resume.pdf"
+                  title="Tiger Schueler Resume"
+                  className="h-[640px] w-full rounded-xl border border-surface-2"
+                >
+                  <p className="text-white">
+                    Your browser cannot display this PDF inline.{' '}
+                    <a
+                      href="/Tiger_Schueler_Software_Engineer_Resume.pdf"
+                      className="underline"
+                    >
+                      Download the resume PDF
+                    </a>
+                    .
+                  </p>
+                </iframe>
+              </object>
+            </div>
+
+            {/* Mobile: tap-to-open card */}
+            <a
+              href="/Tiger_Schueler_Software_Engineer_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex w-full items-center justify-center gap-3 rounded-xl border border-surface-2 bg-surface px-6 py-5 text-text shadow-soft transition hover:border-accent md:hidden"
+            >
+              <FileText size={20} strokeWidth={2} aria-hidden="true" />
+              <span className="font-medium">Open Resume</span>
+            </a>
+
+            {/* Download button: ghost outline (deviation from design.json filled-accent
+                because Lavender on Lavender has no contrast on this section) */}
+            <a
+              href="/Tiger_Schueler_Software_Engineer_Resume.pdf"
+              download="Tiger_Schueler_Software_Engineer_Resume.pdf"
+              className="group mt-6 inline-flex items-center gap-2 rounded-lg border-2 border-white px-6 py-3 font-medium text-white transition hover:bg-white hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-accent"
+            >
+              <Download size={18} strokeWidth={2} aria-hidden="true" />
+              Download PDF
+            </a>
+          </motion.div>
         </motion.div>
       </div>
     </section>
