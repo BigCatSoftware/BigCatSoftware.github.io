@@ -154,7 +154,7 @@ export default function TicTacToe() {
   }
 
   return (
-    <section id="play" className="bg-bg text-text py-24 md:py-28">
+    <section id="play" className="bg-bg text-text pt-12 pb-24 md:pt-16 md:pb-28">
       <div className="mx-auto max-w-3xl px-6 md:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -178,11 +178,11 @@ export default function TicTacToe() {
           Skip game
         </a>
 
-        <p className="mt-10 font-mono text-sm uppercase tracking-[0.18em] text-text-muted" aria-live="polite">
+        <p className="mt-5 font-mono text-sm uppercase tracking-[0.18em] text-text-muted" aria-live="polite">
           {statusMessage()}
         </p>
 
-        <div className="mx-auto mt-6 aspect-square w-full max-w-[480px]">
+        <div className="mx-auto mt-3 aspect-square w-full max-w-[480px]">
           <div
             ref={containerRef}
             className="h-full w-full"

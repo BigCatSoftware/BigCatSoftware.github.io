@@ -40,11 +40,11 @@ export default function About() {
             </motion.p>
 
             <motion.p variants={itemVariants}>
-              Background: B.S. in Computer Science &amp; Systems from UW Tacoma with a math minor, four years in the Navy before that as a Mount Captain on a .50 cal crew, and a few years before <em>that</em> teaching martial arts (3rd Dan ITF black belt).
+              Background: B.S. in Computer Science &amp; Systems from UW Tacoma with a math minor. Before that, four years in the Navy: Aviation Ordnance and Mount Captain on a .50 cal crew aboard USS Nimitz, deployed April 2020 to March 2021. And a few years before that, teaching martial arts (3rd Dan ITF black belt).
             </motion.p>
 
             <motion.p variants={itemVariants}>
-              Off the clock, I&apos;m a husband and father of two. I&apos;m a Christian; I read scripture, theology, and the church fathers, and keep a steady stack of programming and software books going on the side. When there&apos;s time left, I&apos;m either tinkering with passion projects in Godot (Mono build, C# scripting, with shader coding on the list) or replaying old Nintendo games on the Switch.
+              Off the clock, I&apos;m a husband and father of two. I&apos;m a Christian; I read scripture, theology, and the church fathers, and keep a steady stack of programming and software books going on the side. When there&apos;s time left, I&apos;m either picking up MonoGame to build a hobby game in C# or replaying old Nintendo games on the Switch.
             </motion.p>
           </div>
         </motion.div>

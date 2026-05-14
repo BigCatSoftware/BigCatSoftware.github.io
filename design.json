@@ -144,8 +144,8 @@
       "heading": { "content": "About", "style": "displayHeading" },
       "prose": [
         "I'm a Data Engineer in the Pacific Northwest. By day I'm in C# and T-SQL, building production data infrastructure at BNBuilders. The current main project is a .NET 10 ETL platform I built from scratch to move hundreds of millions of rows a day from Oracle ERP into Azure SQL.",
-        "Background: B.S. in Computer Science & Systems from UW Tacoma with a math minor, four years in the Navy before that as a Mount Captain on a .50 cal crew, and a few years before *that* teaching martial arts (3rd Dan ITF black belt).",
-        "Off the clock, I'm a husband and father of two. I'm a Christian; I read scripture, theology, and the church fathers, and keep a steady stack of programming and software books going on the side. When there's time left, I'm either tinkering with passion projects in Godot (Mono build, C# scripting, with shader coding on the list) or replaying old Nintendo games on the Switch."
+        "Background: B.S. in Computer Science & Systems from UW Tacoma with a math minor. Before that, four years in the Navy: Aviation Ordnance and Mount Captain on a .50 cal crew aboard USS Nimitz, deployed April 2020 to March 2021. And a few years before that, teaching martial arts (3rd Dan ITF black belt).",
+        "Off the clock, I'm a husband and father of two. I'm a Christian; I read scripture, theology, and the church fathers, and keep a steady stack of programming and software books going on the side. When there's time left, I'm either picking up MonoGame to build a hobby game in C# or replaying old Nintendo games on the Switch."
       ],
       "motion": "fade-up stagger on scroll (heading, then each paragraph), 80ms stagger"
     },

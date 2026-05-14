@@ -14,8 +14,10 @@ import Footer from './components/Footer'
 const TicTacToe = lazy(() => import('./components/TicTacToe'))
 
 function TicTacToePlaceholder() {
+  // Matches the real TicTacToe section's padding and inner spacing so
+  // the swap on lazy-load does not cause a layout shift.
   return (
-    <section id="play" className="bg-bg text-text py-24 md:py-28">
+    <section id="play" className="bg-bg text-text pt-12 pb-24 md:pt-16 md:pb-28">
       <div className="mx-auto max-w-3xl px-6 md:px-8 text-center">
         <p className="font-mono text-sm font-medium uppercase tracking-[0.22em] text-text-muted">
           AN ASIDE
@@ -25,7 +27,7 @@ function TicTacToePlaceholder() {
         </h2>
         <p className="mt-3 text-lg text-text-muted">Three in a row. You are X.</p>
         <div
-          className="mx-auto mt-16 aspect-square w-full max-w-[480px] rounded-xl bg-surface/40"
+          className="mx-auto mt-8 aspect-square w-full max-w-[480px] rounded-xl bg-surface/40"
           aria-hidden="true"
         />
       </div>
