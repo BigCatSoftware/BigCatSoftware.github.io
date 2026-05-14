@@ -38,12 +38,13 @@
     },
 
     "scale": {
-      "displayHero":      { "size": "clamp(2.5rem, 5.5vw, 4.5rem)", "weight": 700, "tracking": "-0.02em", "lineHeight": 1.1 },
+      "displayHero":      { "size": "clamp(2rem, 3.5vw, 3rem)", "weight": 700, "tracking": "-0.02em", "lineHeight": 1.15 },
       "displayHeading":   { "size": "clamp(2.5rem, 4vw, 3.75rem)", "weight": 600, "tracking": "-0.01em", "lineHeight": 1.15 },
       "lead":             { "size": "clamp(1.25rem, 1.6vw, 1.5rem)", "weight": 400, "lineHeight": 1.7 },
       "body":             { "size": "1rem", "weight": 400, "lineHeight": 1.7 },
       "bodyLarge":        { "size": "1.125rem", "weight": 400, "lineHeight": 1.75 },
       "kicker":           { "size": "0.875rem", "weight": 500, "tracking": "0.22em", "transform": "uppercase" },
+      "heroKicker":       { "size": "1.5rem",   "weight": 500, "tracking": "0.22em", "transform": "uppercase" },
       "credentialCode":   { "size": "clamp(2rem, 4vw, 3rem)", "weight": 500, "tracking": "0.05em" },
       "caption":          { "size": "0.875rem", "weight": 400 }
     },
@@ -121,7 +122,7 @@
         "maxWidth": "480px"
       },
       "text": {
-        "kicker":     { "content": "TIGER SCHUELER", "style": "kicker", "color": "textMuted" },
+        "kicker":     { "content": "TIGER SCHUELER", "style": "heroKicker", "color": "textMuted" },
         "heading":    { "content": "Building durable software in C# and .NET.", "style": "displayHero", "color": "text" },
         "subheading": { "content": "Data Engineer at BNBuilders, Pacific Northwest.", "style": "lead", "color": "textMuted" },
         "ctas": [
