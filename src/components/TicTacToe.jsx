@@ -1,23 +1,74 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Phaser from 'phaser'
+import { motion } from 'framer-motion'
 import { checkWinner, makeAIMove } from '../game/ticTacToeLogic'
+import { BoardScene } from '../game/PhaserBoardScene'
 import {
   playClickSound,
   playCelebrationSounds,
   playVictorySounds,
   triggerConfetti,
 } from '../hooks/useSound'
-import './TicTacToe.css'
 
-const TicTacToe = () => {
+const CANVAS_PX = 480
+
+export default function TicTacToe() {
+  const containerRef = useRef(null)
+  const gameRef = useRef(null)
+  const sceneRef = useRef(null)
+  const handlerRef = useRef(() => {})
+
   const [board, setBoard] = useState(Array(9).fill(null))
-  const [gameStatus, setGameStatus] = useState('playing') // 'playing', 'won', 'draw'
+  const [gameStatus, setGameStatus] = useState('playing') // 'playing' | 'won' | 'draw'
   const [winner, setWinner] = useState(null)
-  const [showVictoryCelebration, setShowVictoryCelebration] = useState(false)
-  const [winCount, setWinCount] = useState(0)
   const [isPlayerTurn, setIsPlayerTurn] = useState(true)
   const [isThinking, setIsThinking] = useState(false)
+  const [winCount, setWinCount] = useState(0)
+  const [showVictoryCelebration, setShowVictoryCelebration] = useState(false)
 
-  const handleClick = (index) => {
+  // Mount the Phaser game once on first render. The scene receives a stable
+  // callback that delegates to handlerRef.current so the scene never sees
+  // stale React state.
+  useEffect(() => {
+    if (!containerRef.current) return
+
+    const scene = new BoardScene({
+      onTileClick: (index) => handlerRef.current(index),
+    })
+    sceneRef.current = scene
+
+    const game = new Phaser.Game({
+      type: Phaser.AUTO,
+      parent: containerRef.current,
+      transparent: true,
+      backgroundColor: 0x00000000,
+      scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: CANVAS_PX,
+        height: CANVAS_PX,
+      },
+      scene,
+      pixelArt: false,
+      antialias: true,
+    })
+    gameRef.current = game
+
+    return () => {
+      game.destroy(true)
+      gameRef.current = null
+      sceneRef.current = null
+    }
+  }, [])
+
+  // Mirror board state into the Phaser scene whenever it changes.
+  useEffect(() => {
+    sceneRef.current?.updateBoard(board)
+  }, [board])
+
+  // Tile click handler. handlerRef is reassigned on every render so the
+  // closure always sees the latest state when the scene fires the event.
+  handlerRef.current = (index) => {
     if (board[index] || gameStatus !== 'playing' || !isPlayerTurn || isThinking) return
 
     const newBoard = board.slice()
@@ -26,10 +77,8 @@ const TicTacToe = () => {
     setIsPlayerTurn(false)
     setIsThinking(true)
 
-    // Play player click sound
     playClickSound(true)
 
-    // Check if player won
     const gameWinner = checkWinner(newBoard)
     if (gameWinner) {
       setWinner(gameWinner)
@@ -37,59 +86,48 @@ const TicTacToe = () => {
       const newWinCount = winCount + 1
       setWinCount(newWinCount)
 
-      // Show special victory celebration on 3rd win
       if (newWinCount === 3) {
         setShowVictoryCelebration(true)
-        // Immediate victory music for mobile
-        playVictorySounds()
+        playVictorySounds() // immediate, mobile-gesture path
       }
 
-      // Trigger confetti and celebration sounds
       playCelebrationSounds()
       triggerConfetti()
 
-      // Delayed victory sequence on 3rd+ win
       if (newWinCount >= 3) {
-        setTimeout(() => {
-          playVictorySounds()
-        }, 2000) // Delay to let regular celebration finish
+        setTimeout(() => playVictorySounds(), 2000)
       }
       return
     }
 
-    // Check for draw
-    if (newBoard.every(square => square !== null)) {
+    if (newBoard.every((cell) => cell !== null)) {
       setGameStatus('draw')
       setIsThinking(false)
       return
     }
 
-    // AI makes move after 1 second delay
+    // AI moves after 1s (preserved verbatim from main)
     setTimeout(() => {
       const aiBoard = makeAIMove(newBoard)
       setBoard(aiBoard)
       setIsThinking(false)
       setIsPlayerTurn(true)
 
-      // Play AI click sound
       playClickSound(false)
 
-      // Check if AI won
       const aiWinner = checkWinner(aiBoard)
       if (aiWinner) {
         setWinner(aiWinner)
         setGameStatus('won')
         return
       }
-
-      // Check for draw
-      if (aiBoard.every(square => square !== null)) {
+      if (aiBoard.every((cell) => cell !== null)) {
         setGameStatus('draw')
       }
     }, 1000)
   }
 
-  const resetGame = () => {
+  function resetGame() {
     setBoard(Array(9).fill(null))
     setGameStatus('playing')
     setWinner(null)
@@ -98,118 +136,84 @@ const TicTacToe = () => {
     setIsThinking(false)
   }
 
-  const renderSquare = (index) => {
-    const isDisabled = gameStatus !== 'playing' || !isPlayerTurn || isThinking || board[index] !== null
-    return (
-      <button
-        className={`square ${board[index] ? `square-${board[index].toLowerCase()}` : ''} ${isThinking ? 'thinking' : ''}`}
-        onClick={() => handleClick(index)}
-        disabled={isDisabled}
-      >
-        {board[index]}
-      </button>
-    )
-  }
-
-  const getStatusMessage = () => {
-    if (gameStatus === 'won') {
-      if (winner === 'X') {
-        return `🎉 You Win! 🎉`
-      } else {
-        return `🤖 AI Wins! 🤖`
-      }
-    } else if (gameStatus === 'draw') {
-      return "It's a Draw! 🤝"
-    } else if (isThinking) {
-      return "🤖 AI is thinking..."
-    } else {
-      return "Your turn! Place an X"
-    }
+  function statusMessage() {
+    if (gameStatus === 'won') return winner === 'X' ? 'You win!' : 'AI wins.'
+    if (gameStatus === 'draw') return 'Draw.'
+    if (isThinking) return 'Thinking...'
+    return 'Your turn. Place an X.'
   }
 
   return (
-    <div className="tic-tac-toe-container">
-      <div className="game-header">
-        <h3>🎮 Tic-Tac-Toe vs AI</h3>
-        <p className="game-instructions">
-          You are X, AI is O. Win 3 games to unlock special victory sounds! 🎁
-        </p>
-        <div className="win-counter">
-          <span className="win-count">🏆 Wins: {winCount}</span>
-          {winCount >= 3 && <span className="victory-badge">🎊 Victory Master! 🎊</span>}
-        </div>
-      </div>
+    <section id="play" className="bg-bg text-text py-24 md:py-28">
+      <div className="mx-auto max-w-3xl px-6 md:px-8 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="font-mono text-sm font-medium uppercase tracking-[0.22em] text-text-muted">
+            AN ASIDE
+          </p>
+          <h2 className="mt-2 font-display font-semibold leading-[1.15] tracking-[-0.01em] text-[clamp(2.5rem,4vw,3.75rem)]">
+            Tic Tac Toe.
+          </h2>
+          <p className="mt-3 text-lg text-text-muted">Three in a row. You are X.</p>
+        </motion.div>
 
-      <div className="game-status">
-        <p className={`status-message ${gameStatus} ${isThinking ? 'thinking' : ''}`}>
-          {getStatusMessage()}
+        <p className="mt-10 font-mono text-sm uppercase tracking-[0.18em] text-text-muted">
+          {statusMessage()}
         </p>
-      </div>
 
-      <div className="game-board">
-        <div className="board-row">
-          {renderSquare(0)}
-          {renderSquare(1)}
-          {renderSquare(2)}
+        <div className="mx-auto mt-6 aspect-square w-full max-w-[480px]">
+          <div ref={containerRef} className="h-full w-full" />
         </div>
-        <div className="board-row">
-          {renderSquare(3)}
-          {renderSquare(4)}
-          {renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {renderSquare(6)}
-          {renderSquare(7)}
-          {renderSquare(8)}
-        </div>
+
+        <button
+          type="button"
+          onClick={resetGame}
+          className="mt-8 inline-flex items-center gap-2 rounded-lg border-2 border-border px-6 py-3 font-medium text-text transition-colors duration-[220ms] hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+        >
+          New Game
+        </button>
+
+        <p className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-text-muted">
+          Wins: {winCount}
+        </p>
       </div>
 
       {showVictoryCelebration && (
-        <div className="victory-celebration">
-          <div
-            className="celebration-message"
-            onClick={() => {
-              // Trigger victory music on click for mobile (gesture replay)
-              playVictorySounds()
-            }}
-          >
-            <h4>🏆 VICTORY MASTER! 🏆</h4>
-            <p>🎉 You've achieved 3 wins! 🎉</p>
-            <p>🎵 🎶 🎵</p>
-            <div className="celebration-emoji">
-              🎊🎉🎈🎁🎂🎯🎪🎭🎨🎪🎊
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-6">
+          <div className="max-w-md rounded-2xl border border-border bg-surface p-8 text-center shadow-lifted">
+            <p className="font-mono text-sm font-medium uppercase tracking-[0.22em] text-text-muted">
+              VICTORY MASTER
+            </p>
+            <h3 className="mt-2 font-display text-3xl font-semibold">Three wins in a session.</h3>
+            <p className="mt-4 text-text-muted">Tap anywhere on this card to replay the victory sound.</p>
+            <div
+              className="mt-6 cursor-pointer rounded-lg bg-bg p-4 text-text-muted transition hover:bg-border"
+              onClick={() => playVictorySounds()}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  playVictorySounds()
+                }
+              }}
+            >
+              Tap to replay
             </div>
             <button
-              className="celebration-button"
+              type="button"
               onClick={() => setShowVictoryCelebration(false)}
+              className="mt-6 inline-flex items-center gap-2 rounded-lg border-2 border-border px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent"
             >
-              🎊 Awesome! 🎊
+              Close
             </button>
           </div>
         </div>
       )}
-
-      <div className="game-controls">
-        <button className="reset-button" onClick={resetGame}>
-          🔄 New Game
-        </button>
-        <button
-          className="reset-stats-button"
-          onClick={() => {
-            setWinCount(0)
-          }}
-        >
-          📊 Reset Stats
-        </button>
-      </div>
-
-      <div className="game-footer">
-        <p className="easter-egg-hint">
-          💡 This is an easter egg! Win 3 games to hear the victory celebration! 🎉
-        </p>
-      </div>
-    </div>
+    </section>
   )
 }
-
-export default TicTacToe
