@@ -4,7 +4,7 @@ import Hero from './components/Hero'
 import About from './components/About'
 import FeaturedWork from './components/FeaturedWork'
 import TicTacToe from './components/TicTacToe'
-import Education from './components/Education'
+import Credentials from './components/Credentials'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 
@@ -16,7 +16,7 @@ function App() {
         <About />
         <FeaturedWork />
         <TicTacToe />
-        <Education />
+        <Credentials />
         <Contact />
       </main>
 
