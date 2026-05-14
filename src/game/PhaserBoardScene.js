@@ -12,14 +12,19 @@ const COLORS = {
   textMuted: 0x6c6f85,
 }
 
-// Internal layout. Tiles render in a 3x3 grid centered in the canvas.
-// Tile dimensions are computed from canvas size at scene create() so the
-// board scales when the wrapper resizes. No juice in this commit; pieces
-// appear instantly, tiles are static.
 const TILE_RADIUS_PX = 10
 const TILE_GAP_PX = 12
 const PIECE_STROKE_PX = 10
 const PIECE_INSET_PX = 28
+const GLOW_PADDING_PX = 20
+const BREATHING_DURATION = 1800
+const BREATHING_SCALE = 1.02
+const HOVER_SCALE = 1.05
+const HOVER_DURATION = 180
+const X_DROP_DURATION_1 = 200
+const X_DROP_DURATION_2 = 80
+const O_SWIRL_DURATION = 320
+const FLASH_DURATION = 300
 
 export class BoardScene extends Phaser.Scene {
   constructor(config = {}) {
@@ -32,9 +37,6 @@ export class BoardScene extends Phaser.Scene {
 
   create() {
     const { width, height } = this.scale.gameSize
-
-    // Compute tile size from canvas dimensions so the board fills the
-    // square wrapper regardless of viewport.
     const board = Math.min(width, height)
     this.tileSize = Math.floor((board - TILE_GAP_PX * 2) / 3)
     const tileFill = this.tileSize - TILE_GAP_PX
@@ -44,7 +46,7 @@ export class BoardScene extends Phaser.Scene {
   }
 
   #generateTextures(size) {
-    // Tile texture
+    // Tile
     const tileGfx = this.add.graphics()
     tileGfx.fillStyle(COLORS.surface, 1)
     tileGfx.fillRoundedRect(0, 0, size, size, TILE_RADIUS_PX)
@@ -53,7 +55,7 @@ export class BoardScene extends Phaser.Scene {
     tileGfx.generateTexture('tile', size, size)
     tileGfx.destroy()
 
-    // X piece texture
+    // X piece
     const xGfx = this.add.graphics()
     xGfx.lineStyle(PIECE_STROKE_PX, COLORS.accent, 1)
     xGfx.beginPath()
@@ -65,12 +67,20 @@ export class BoardScene extends Phaser.Scene {
     xGfx.generateTexture('x-piece', size, size)
     xGfx.destroy()
 
-    // O piece texture
+    // O piece
     const oGfx = this.add.graphics()
     oGfx.lineStyle(PIECE_STROKE_PX, COLORS.accent2, 1)
     oGfx.strokeCircle(size / 2, size / 2, size / 2 - PIECE_INSET_PX)
     oGfx.generateTexture('o-piece', size, size)
     oGfx.destroy()
+
+    // Lavender glow (soft rounded rect, larger than tile, used beneath on hover)
+    const glowSize = size + GLOW_PADDING_PX * 2
+    const glowGfx = this.add.graphics()
+    glowGfx.fillStyle(COLORS.accent, 0.45)
+    glowGfx.fillRoundedRect(0, 0, glowSize, glowSize, TILE_RADIUS_PX + 6)
+    glowGfx.generateTexture('glow', glowSize, glowSize)
+    glowGfx.destroy()
   }
 
   #placeTiles(width, height, boardPx) {
@@ -83,30 +93,143 @@ export class BoardScene extends Phaser.Scene {
         const x = startX + col * this.tileSize
         const y = startY + row * this.tileSize
 
+        // Glow first so it renders beneath the tile
+        const glow = this.add.image(x, y, 'glow').setAlpha(0)
+
         const tile = this.add.image(x, y, 'tile')
         tile.setInteractive({ useHandCursor: true })
         tile.on('pointerdown', () => this.onTileClick(index))
+        tile.on('pointerover', () => this.#hoverIn(index))
+        tile.on('pointerout', () => this.#hoverOut(index))
 
-        this.tileSprites[index] = { sprite: tile, x, y }
+        // Continuous breathing scale 1.0 to 1.02, staggered across tiles
+        const breathingTween = this.tweens.add({
+          targets: tile,
+          scale: BREATHING_SCALE,
+          duration: BREATHING_DURATION,
+          yoyo: true,
+          repeat: -1,
+          ease: 'Sine.easeInOut',
+          delay: index * 200,
+        })
+
+        this.tileSprites[index] = { sprite: tile, x, y, glow, breathingTween, hoverTween: null }
         this.pieceSprites[index] = null
       }
     }
   }
 
-  // Called from React after every board state change. Adds or removes
-  // piece sprites to mirror the board array. No animation yet.
+  #hoverIn(index) {
+    if (this.pieceSprites[index]) return
+    const entry = this.tileSprites[index]
+    entry.breathingTween?.pause()
+    if (entry.hoverTween) entry.hoverTween.stop()
+    entry.hoverTween = this.tweens.add({
+      targets: entry.sprite,
+      scale: HOVER_SCALE,
+      duration: HOVER_DURATION,
+      ease: 'Sine.easeOut',
+    })
+    this.tweens.add({
+      targets: entry.glow,
+      alpha: 1,
+      duration: HOVER_DURATION,
+      ease: 'Sine.easeOut',
+    })
+  }
+
+  #hoverOut(index) {
+    if (this.pieceSprites[index]) return
+    const entry = this.tileSprites[index]
+    if (entry.hoverTween) entry.hoverTween.stop()
+    entry.hoverTween = this.tweens.add({
+      targets: entry.sprite,
+      scale: 1.0,
+      duration: HOVER_DURATION,
+      ease: 'Sine.easeOut',
+      onComplete: () => entry.breathingTween?.resume(),
+    })
+    this.tweens.add({
+      targets: entry.glow,
+      alpha: 0,
+      duration: HOVER_DURATION,
+      ease: 'Sine.easeOut',
+    })
+  }
+
+  #flashTile(index, color) {
+    const tile = this.tileSprites[index].sprite
+    const startColor = Phaser.Display.Color.IntegerToColor(color)
+    const endColor = Phaser.Display.Color.IntegerToColor(COLORS.surface)
+
+    this.tweens.addCounter({
+      from: 0,
+      to: 100,
+      duration: FLASH_DURATION,
+      ease: 'Sine.easeOut',
+      onUpdate: (tween) => {
+        const blended = Phaser.Display.Color.Interpolate.ColorWithColor(
+          startColor,
+          endColor,
+          100,
+          tween.getValue(),
+        )
+        tile.setTint(Phaser.Display.Color.GetColor(blended.r, blended.g, blended.b))
+      },
+      onComplete: () => tile.clearTint(),
+    })
+  }
+
+  // Called from React after every board state change.
   updateBoard(board) {
     for (let i = 0; i < 9; i++) {
       const existing = this.pieceSprites[i]
       const cell = board[i]
+
       if (cell && !existing) {
-        const { x, y } = this.tileSprites[i]
+        const entry = this.tileSprites[i]
+
+        // Reset any active hover state and pause breathing while occupied
+        if (entry.hoverTween) entry.hoverTween.stop()
+        entry.breathingTween?.pause()
+        entry.sprite.setScale(1.0)
+        entry.glow.setAlpha(0)
+        entry.sprite.disableInteractive()
+
         const textureKey = cell === 'X' ? 'x-piece' : 'o-piece'
-        const piece = this.add.image(x, y, textureKey)
+        const piece = this.add.image(entry.x, entry.y, textureKey)
         this.pieceSprites[i] = piece
+
+        if (cell === 'X') {
+          // Drop with bounce: scale 0.3 -> 1.1 -> 1.0
+          piece.setScale(0.3)
+          this.tweens.chain({
+            targets: piece,
+            tweens: [
+              { scale: 1.1, duration: X_DROP_DURATION_1, ease: 'Back.easeOut' },
+              { scale: 1.0, duration: X_DROP_DURATION_2, ease: 'Sine.easeInOut' },
+            ],
+          })
+          this.#flashTile(i, COLORS.accent)
+        } else {
+          // Swirl in: rotation -180 -> 0, scale 0 -> 1
+          piece.setScale(0).setAngle(-180)
+          this.tweens.add({
+            targets: piece,
+            scale: 1,
+            angle: 0,
+            duration: O_SWIRL_DURATION,
+            ease: 'Sine.easeOut',
+          })
+          this.#flashTile(i, COLORS.accent2)
+        }
       } else if (!cell && existing) {
+        // Reset to empty: destroy piece, resume breathing, re-enable hover
         existing.destroy()
         this.pieceSprites[i] = null
+        const entry = this.tileSprites[i]
+        entry.sprite.setInteractive({ useHandCursor: true })
+        entry.breathingTween?.resume()
       }
     }
   }
