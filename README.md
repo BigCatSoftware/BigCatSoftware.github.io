@@ -1,98 +1,79 @@
-# Tiger Schueler - Personal Portfolio
+# tigerschueler.dev
 
-A modern, responsive personal portfolio website showcasing my skills, projects, and professional background as a U.S. Navy veteran and Computer Science graduate.
+Source for [bigcatsoftware.github.io](https://bigcatsoftware.github.io/) — my personal portfolio.
 
-## 🚀 Features
+Single-page React app with a Phaser tic tac toe section, a PDF.js flip-card resume preview, and a credential verification widget that links out to the UW Registrar. Catppuccin Latte palette with Lavender as the primary accent and Peach as the secondary.
 
-- **Modern Design**: Built following a comprehensive design system with bold typography and vibrant accent colors
-- **Responsive Layout**: Mobile-first design that works perfectly on all devices
-- **Interactive Sections**: Smooth scrolling navigation and engaging animations
-- **Project Showcase**: Featured projects from GitHub with live links and technology tags
-- **Professional Background**: Highlights military service, education, and technical skills
-- **Contact Integration**: Direct links to LinkedIn, GitHub, and contact form
-- **Accessibility**: WCAG compliant with proper focus management and semantic HTML
+## Stack
 
-## 🛠️ Technologies Used
+- React 19, Vite 7
+- Tailwind CSS v4, with design tokens declared in `src/index.css` via `@theme`
+- Phaser 3 for the Tic Tac Toe scene (lazy-loaded so it doesn't bloat the initial bundle)
+- Framer Motion for entrance and hover motion
+- pdfjs-dist for the resume preview, rendered to canvas on both faces of a CSS 3D flip card
+- lucide-react plus inline brand SVGs (`GithubMark`, `LinkedinMark`) for icons
+- canvas-confetti for the credential-verification burst
 
-- **Frontend**: React 19, Vite
-- **Styling**: CSS3 with CSS Grid and Flexbox
-- **Typography**: Inter font family
-- **Icons**: Emoji-based icons for cross-platform compatibility
-- **Responsive**: Mobile-first CSS with breakpoints
+## Design
 
-## 📁 Project Structure
+`DESIGN.md` and `design.json` at the repo root are the source of truth for tokens, copy, and component specs. The implementation in `src/` is meant to match those documents — when they disagree, DESIGN.md wins on intent and design.json wins on values.
+
+## Sections
+
+1. Hero — asymmetric portrait + thesis, with an ambient Lavender-to-Peach gradient drifting behind the text.
+2. About — three short paragraphs of prose.
+3. Featured Work — long-form list of four projects (BNB ETL platform, SHA3-SHAKE, j-- compiler, Procedural Dungeon Generation). Each row has an inline SVG identifier and a cursor-following 3D tilt on hover.
+4. Tic Tac Toe — Phaser 3 board with tile breathing, hover lift, X/O entrance tweens, a winning-line pulse, particle bursts, camera shake, and a Victory Master modal after a third session win. Audio is procedural Web Audio oscillators in `useSound.js`, preserved verbatim from the prior version of the site.
+5. Credentials — the section sits on a full Lavender panel. A credential ID with a copy-to-clipboard button, a verify flow with a theatrical 1200ms loading + status cascade + confetti, the diploma image, and a PDF.js flip-card preview of the resume with View / Download buttons.
+6. Contact — three ghost-outline buttons for email, LinkedIn, and GitHub.
+
+## Run it
+
+```bash
+npm install
+npm run dev      # local dev server
+npm run build    # outputs to docs/
+npm run preview  # serve the built docs/
+```
+
+## Deployment
+
+GitHub Pages serves from `main`'s `/docs` folder. To deploy: `npm run build`, then commit the changed `docs/` artifacts and push to `main`.
+
+## Layout
 
 ```
+DESIGN.md
+design.json
+public/
+  diploma_image.png
+  tiger_graduation_square_crop.jpg
+  Tiger_Schueler_New_Software_Engineer_Resume.pdf
+  Tiger_Schueler_UWT_BS_CSS.pdf
+  favicon.svg
 src/
-├── components/
-│   ├── Navigation.jsx      # Fixed navigation with smooth scrolling
-│   ├── Hero.jsx           # Landing section with personal branding
-│   ├── About.jsx          # Skills, achievements, and background
-│   ├── Projects.jsx       # Featured GitHub projects
-│   ├── Education.jsx      # Academic background and certifications
-│   ├── Contact.jsx        # Contact form and social links
-│   └── Footer.jsx         # Footer with additional links
-├── App.jsx                # Main application component
-├── App.css                # Design system and global styles
-└── index.css              # Base styles and font imports
+  App.jsx
+  index.css                  Tailwind @theme tokens + global reset
+  components/
+    Hero.jsx
+    About.jsx
+    FeaturedWork.jsx
+    TicTacToe.jsx            React shell that mounts the Phaser scene
+    Credentials.jsx
+    Contact.jsx
+    Footer.jsx
+    icons/                   GithubMark, LinkedinMark
+  game/
+    PhaserBoardScene.js      board, tile/piece animations, celebration
+    ticTacToeLogic.js        win detection and AI heuristic
+  hooks/
+    useSound.js              Web Audio oscillator routines
+docs/                        Vite build output, served by GH Pages
 ```
 
-## 🎨 Design System
+## Background
 
-The portfolio follows a comprehensive design system featuring:
+I'm Tiger Schueler. Data Engineer at BNBuilders in the Pacific Northwest, working in C# and T-SQL. UW Tacoma B.S. Computer Science & Systems with a math minor, 2025. Four years in the Navy before that (Aviation Ordnance, USS Nimitz, 2018-2022).
 
-- **Color Palette**: Vibrant coral accent (#FF6B35) with neutral grays and whites
-- **Typography**: Bold, modern fonts with clear hierarchy
-- **Layout**: Asymmetric designs with generous whitespace
-- **Components**: Consistent button styles, cards, and interactive elements
-- **Animations**: Subtle hover effects and smooth transitions
-
-## 🚀 Getting Started
-
-1. **Install Dependencies**
-   ```bash
-   npm install
-   ```
-
-2. **Start Development Server**
-   ```bash
-   npm run dev
-   ```
-
-3. **Build for Production**
-   ```bash
-   npm run build
-   ```
-
-## 📱 Responsive Design
-
-- **Mobile**: 320px - 768px (Single column, stacked sections)
-- **Tablet**: 768px - 1024px (Two-column layouts where appropriate)
-- **Desktop**: 1024px+ (Full multi-column layouts with all features)
-
-## 🔗 External Links
-
-- **GitHub**: [github.com/BigCatSoftware](https://github.com/BigCatSoftware)
-- **LinkedIn**: [linkedin.com/in/tigerschueler](https://www.linkedin.com/in/tigerschueler/)
-- **Resume**: Available for download in the Education section
-
-## 📄 Documents
-
-- Resume: `Tiger_Schueler_Software_Engineer_Resume.pdf`
-
-## 🎯 Key Highlights
-
-- **U.S. Navy Veteran** with Secret clearance (eligible for reactivation)
-- **University of Washington Tacoma** graduate with B.S. in Computer Science and Systems
-- **Minor in Mathematics** with strong analytical foundation
-- **Full-Stack Development** expertise in modern web technologies
-- **Data Science** experience with statistical modeling and machine learning
-- **Leadership Experience** from military service with proven problem-solving skills
-
-## 🛡️ Security Clearance
-
-Current Secret clearance with eligibility for reactivation, demonstrating trustworthiness and reliability for sensitive projects.
-
----
-
-Built with ❤️ by Tiger Schueler
+- [GitHub](https://github.com/BigCatSoftware)
+- [LinkedIn](https://www.linkedin.com/in/tigerschueler/)
