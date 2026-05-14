@@ -1,8 +1,9 @@
-/* Design System Variables */
+/* Design System Variables
+   --color-accent and --color-accent-hover removed here so the Tailwind v4
+   @theme block in index.css owns the accent token. Unrebuilt components
+   that reference var(--color-accent) now inherit Latte Lavender. */
 :root {
   /* Colors */
-  --color-accent: #FF6B35;
-  --color-accent-hover: #E55A2B;
   --color-dark: #1A1A1A;
   --color-light: #FFFFFF;
   --color-gray: #F5F5F5;

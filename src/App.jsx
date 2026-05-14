@@ -9,17 +9,10 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 
 function App() {
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
   return (
     <div className="app">
       <main>
-        <Hero onNavigate={scrollToSection} />
+        <Hero />
         <About />
         <Projects />
         <TicTacToe />

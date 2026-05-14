@@ -117,3 +117,24 @@ input, textarea, select {
     scroll-behavior: auto !important;
   }
 }
+
+/* Hero ambient gradient: Lavender to Peach radial drift on a 20s loop.
+   Lives in CSS so the animation runs on the compositor and respects the
+   global prefers-reduced-motion override above. */
+.hero-ambient {
+  background: radial-gradient(
+    ellipse 65% 55% at 30% 50%,
+    var(--color-accent) 0%,
+    var(--color-accent-2) 45%,
+    transparent 75%
+  );
+  background-size: 200% 200%;
+  opacity: 0.18;
+  animation: hero-ambient-drift var(--duration-ambient) ease-in-out infinite;
+  filter: blur(20px);
+}
+
+@keyframes hero-ambient-drift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
