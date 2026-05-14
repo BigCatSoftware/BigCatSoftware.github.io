@@ -25,6 +25,10 @@ export default function TicTacToe() {
   const [isThinking, setIsThinking] = useState(false)
   const [winCount, setWinCount] = useState(0)
   const [showVictoryCelebration, setShowVictoryCelebration] = useState(false)
+  const [reducedMotion] = useState(() =>
+    typeof window !== 'undefined' &&
+    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
+  )
 
   // Mount the Phaser game once on first render. The scene receives a stable
   // callback that delegates to handlerRef.current so the scene never sees
@@ -34,6 +38,7 @@ export default function TicTacToe() {
 
     const scene = new BoardScene({
       onTileClick: (index) => handlerRef.current(index),
+      reducedMotion,
     })
     sceneRef.current = scene
 
@@ -166,12 +171,24 @@ export default function TicTacToe() {
           <p className="mt-3 text-lg text-text-muted">Three in a row. You are X.</p>
         </motion.div>
 
-        <p className="mt-10 font-mono text-sm uppercase tracking-[0.18em] text-text-muted">
+        <a
+          href="#credentials"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-1/2 focus:z-50 focus:-translate-x-1/2 focus:rounded-md focus:bg-bg focus:px-4 focus:py-2 focus:font-medium focus:text-text focus:shadow-lifted focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-bg"
+        >
+          Skip game
+        </a>
+
+        <p className="mt-10 font-mono text-sm uppercase tracking-[0.18em] text-text-muted" aria-live="polite">
           {statusMessage()}
         </p>
 
         <div className="mx-auto mt-6 aspect-square w-full max-w-[480px]">
-          <div ref={containerRef} className="h-full w-full" />
+          <div
+            ref={containerRef}
+            className="h-full w-full"
+            role="application"
+            aria-label="Interactive tic tac toe game. Use the New Game button below to reset. Skip game link above moves focus past the section."
+          />
         </div>
 
         <button

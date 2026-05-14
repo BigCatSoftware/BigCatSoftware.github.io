@@ -40,6 +40,7 @@ export class BoardScene extends Phaser.Scene {
   constructor(config = {}) {
     super({ key: 'BoardScene' })
     this.onTileClick = config.onTileClick ?? (() => {})
+    this.reducedMotion = config.reducedMotion ?? false
     this.tileSprites = []
     this.pieceSprites = []
     this.tileSize = 0
@@ -119,16 +120,19 @@ export class BoardScene extends Phaser.Scene {
         tile.on('pointerover', () => this.#hoverIn(index))
         tile.on('pointerout', () => this.#hoverOut(index))
 
-        // Continuous breathing scale 1.0 to 1.02, staggered across tiles
-        const breathingTween = this.tweens.add({
-          targets: tile,
-          scale: BREATHING_SCALE,
-          duration: BREATHING_DURATION,
-          yoyo: true,
-          repeat: -1,
-          ease: 'Sine.easeInOut',
-          delay: index * 200,
-        })
+        // Continuous breathing scale 1.0 to 1.02, staggered across tiles.
+        // Skipped entirely under prefers-reduced-motion.
+        const breathingTween = this.reducedMotion
+          ? null
+          : this.tweens.add({
+              targets: tile,
+              scale: BREATHING_SCALE,
+              duration: BREATHING_DURATION,
+              yoyo: true,
+              repeat: -1,
+              ease: 'Sine.easeInOut',
+              delay: index * 200,
+            })
 
         this.tileSprites[index] = { sprite: tile, x, y, glow, breathingTween, hoverTween: null }
         this.pieceSprites[index] = null
@@ -139,6 +143,11 @@ export class BoardScene extends Phaser.Scene {
   #hoverIn(index) {
     if (this.pieceSprites[index]) return
     const entry = this.tileSprites[index]
+    if (this.reducedMotion) {
+      entry.sprite.setScale(HOVER_SCALE)
+      entry.glow.setAlpha(1)
+      return
+    }
     entry.breathingTween?.pause()
     if (entry.hoverTween) entry.hoverTween.stop()
     entry.hoverTween = this.tweens.add({
@@ -158,6 +167,11 @@ export class BoardScene extends Phaser.Scene {
   #hoverOut(index) {
     if (this.pieceSprites[index]) return
     const entry = this.tileSprites[index]
+    if (this.reducedMotion) {
+      entry.sprite.setScale(1.0)
+      entry.glow.setAlpha(0)
+      return
+    }
     if (entry.hoverTween) entry.hoverTween.stop()
     entry.hoverTween = this.tweens.add({
       targets: entry.sprite,
@@ -217,7 +231,9 @@ export class BoardScene extends Phaser.Scene {
         const piece = this.add.image(entry.x, entry.y, textureKey)
         this.pieceSprites[i] = piece
 
-        if (cell === 'X') {
+        if (this.reducedMotion) {
+          piece.setScale(1.0)
+        } else if (cell === 'X') {
           // Drop with bounce: scale 0.3 -> 1.1 -> 1.0
           piece.setScale(0.3)
           this.tweens.chain({
@@ -257,6 +273,14 @@ export class BoardScene extends Phaser.Scene {
   // Called from React when game state transitions to 'won' or 'draw'.
   // outcome: { kind: 'win' | 'loss' | 'draw', winningLine?: number[] }
   playOutcome(outcome) {
+    if (this.reducedMotion) {
+      // Mark the winning line statically, skip particles/shake/wiggle.
+      if (outcome.kind === 'win' || outcome.kind === 'loss') {
+        const color = outcome.kind === 'win' ? COLORS.accent : COLORS.surface2
+        outcome.winningLine?.forEach((i) => this.tileSprites[i].sprite.setTint(color))
+      }
+      return
+    }
     if (outcome.kind === 'win') {
       this.#celebrateLine(outcome.winningLine, true)
     } else if (outcome.kind === 'loss') {

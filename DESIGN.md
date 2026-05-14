@@ -147,7 +147,7 @@ Per design pick 7D.
 
 **Text column (right):**
 - Tiny mono kicker top: `TIGER SCHUELER` in JetBrains Mono uppercase, tracking-[0.22em], --color-text-muted
-- Large Newsreader display heading directly below — this is where the "thesis" lives. Suggested copy: *"Building production data infrastructure in C# and .NET. Quietly, durably, well."*
+- Large Newsreader display heading directly below — this is where the "thesis" lives. Copy: *"Building durable software in C# and .NET."* (canonical content lives in `design.json` components.Hero.text.heading.content).
 - Subdued sub-heading in Inter, --color-text-muted: one-liner that names the role (`Data Engineer at BNBuilders, Pacific Northwest.`)
 - Two CTA buttons in a row: **View Work** (Lavender filled) and **Get In Touch** (ghost/outline)
 
