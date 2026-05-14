@@ -49,14 +49,14 @@ export default function Hero() {
 
             <motion.p
               variants={itemVariants}
-              className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-text-muted"
+              className="font-mono text-sm font-medium uppercase tracking-[0.22em] text-text-muted"
             >
               TIGER SCHUELER
             </motion.p>
 
             <motion.h1
               variants={itemVariants}
-              className="mt-6 font-display font-bold leading-[1.05] tracking-[-0.02em] text-[clamp(4rem,10vw,8rem)]"
+              className="mt-6 font-display font-bold leading-[1.1] tracking-[-0.02em] text-[clamp(2.5rem,5.5vw,4.5rem)]"
             >
               Building durable software in C# and .NET.
             </motion.h1>

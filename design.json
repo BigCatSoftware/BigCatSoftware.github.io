@@ -38,12 +38,12 @@
     },
 
     "scale": {
-      "displayHero":      { "size": "clamp(4rem, 10vw, 8rem)", "weight": 700, "tracking": "-0.02em", "lineHeight": 1.05 },
+      "displayHero":      { "size": "clamp(2.5rem, 5.5vw, 4.5rem)", "weight": 700, "tracking": "-0.02em", "lineHeight": 1.1 },
       "displayHeading":   { "size": "clamp(2.5rem, 4vw, 3.75rem)", "weight": 600, "tracking": "-0.01em", "lineHeight": 1.15 },
       "lead":             { "size": "clamp(1.25rem, 1.6vw, 1.5rem)", "weight": 400, "lineHeight": 1.7 },
       "body":             { "size": "1rem", "weight": 400, "lineHeight": 1.7 },
       "bodyLarge":        { "size": "1.125rem", "weight": 400, "lineHeight": 1.75 },
-      "kicker":           { "size": "0.75rem", "weight": 500, "tracking": "0.22em", "transform": "uppercase" },
+      "kicker":           { "size": "0.875rem", "weight": 500, "tracking": "0.22em", "transform": "uppercase" },
       "credentialCode":   { "size": "clamp(2rem, 4vw, 3rem)", "weight": 500, "tracking": "0.05em" },
       "caption":          { "size": "0.875rem", "weight": 400 }
     },
