@@ -38,7 +38,7 @@
     },
 
     "scale": {
-      "displayHero":      { "size": "clamp(2rem, 3.5vw, 3rem)", "weight": 700, "tracking": "-0.02em", "lineHeight": 1.15 },
+      "displayHero":      { "size": "clamp(2.5rem, 5vw, 4.5rem)", "weight": 700, "tracking": "-0.02em", "lineHeight": 1.15 },
       "displayHeading":   { "size": "clamp(2.5rem, 4vw, 3.75rem)", "weight": 600, "tracking": "-0.01em", "lineHeight": 1.15 },
       "lead":             { "size": "clamp(1.25rem, 1.6vw, 1.5rem)", "weight": 400, "lineHeight": 1.7 },
       "body":             { "size": "1rem", "weight": 400, "lineHeight": 1.7 },
@@ -122,7 +122,7 @@
         "maxWidth": "480px"
       },
       "text": {
-        "kicker":     { "content": "TIGER SCHUELER", "style": "heroKicker", "color": "textMuted" },
+        "kicker":     { "content": "TIGER SCHUELER", "style": "heroKicker", "color": "text" },
         "heading":    { "content": "Building durable software in C# and .NET.", "style": "displayHero", "color": "text" },
         "subheading": { "content": "Data Engineer at BNBuilders, Pacific Northwest.", "style": "lead", "color": "textMuted" },
         "ctas": [
