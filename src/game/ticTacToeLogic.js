@@ -24,6 +24,16 @@ export function checkWinner(squares) {
   return null
 }
 
+export function findWinningLine(squares) {
+  for (let i = 0; i < WINNING_LINES.length; i++) {
+    const [a, b, c] = WINNING_LINES[i]
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return WINNING_LINES[i]
+    }
+  }
+  return null
+}
+
 export function getEmptySquares(squares) {
   return squares.map((square, index) => square === null ? index : null).filter(val => val !== null)
 }

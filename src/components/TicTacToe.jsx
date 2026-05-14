@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Phaser from 'phaser'
 import { motion } from 'framer-motion'
-import { checkWinner, makeAIMove } from '../game/ticTacToeLogic'
+import { checkWinner, findWinningLine, makeAIMove } from '../game/ticTacToeLogic'
 import { BoardScene } from '../game/PhaserBoardScene'
 import {
   playClickSound,
@@ -86,6 +86,8 @@ export default function TicTacToe() {
       const newWinCount = winCount + 1
       setWinCount(newWinCount)
 
+      sceneRef.current?.playOutcome({ kind: 'win', winningLine: findWinningLine(newBoard) })
+
       if (newWinCount === 3) {
         setShowVictoryCelebration(true)
         playVictorySounds() // immediate, mobile-gesture path
@@ -103,6 +105,7 @@ export default function TicTacToe() {
     if (newBoard.every((cell) => cell !== null)) {
       setGameStatus('draw')
       setIsThinking(false)
+      sceneRef.current?.playOutcome({ kind: 'draw' })
       return
     }
 
@@ -119,10 +122,12 @@ export default function TicTacToe() {
       if (aiWinner) {
         setWinner(aiWinner)
         setGameStatus('won')
+        sceneRef.current?.playOutcome({ kind: 'loss', winningLine: findWinningLine(aiBoard) })
         return
       }
       if (aiBoard.every((cell) => cell !== null)) {
         setGameStatus('draw')
+        sceneRef.current?.playOutcome({ kind: 'draw' })
       }
     }, 1000)
   }
@@ -183,31 +188,30 @@ export default function TicTacToe() {
       </div>
 
       {showVictoryCelebration && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-6">
-          <div className="max-w-md rounded-2xl border border-border bg-surface p-8 text-center shadow-lifted">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Victory Master"
+          onClick={() => playVictorySounds()}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-6"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-md rounded-2xl border border-border bg-surface p-8 text-center shadow-lifted"
+          >
             <p className="font-mono text-sm font-medium uppercase tracking-[0.22em] text-text-muted">
               VICTORY MASTER
             </p>
-            <h3 className="mt-2 font-display text-3xl font-semibold">Three wins in a session.</h3>
-            <p className="mt-4 text-text-muted">Tap anywhere on this card to replay the victory sound.</p>
-            <div
-              className="mt-6 cursor-pointer rounded-lg bg-bg p-4 text-text-muted transition hover:bg-border"
-              onClick={() => playVictorySounds()}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault()
-                  playVictorySounds()
-                }
-              }}
-            >
-              Tap to replay
-            </div>
+            <h3 className="mt-3 font-display text-3xl font-semibold leading-[1.15]">
+              Three wins in a session.
+            </h3>
+            <p className="mt-4 text-text-muted">
+              Tap anywhere outside this card to replay the victory sound.
+            </p>
             <button
               type="button"
               onClick={() => setShowVictoryCelebration(false)}
-              className="mt-6 inline-flex items-center gap-2 rounded-lg border-2 border-border px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent"
+              className="mt-6 inline-flex items-center gap-2 rounded-lg border-2 border-border px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
             >
               Close
             </button>

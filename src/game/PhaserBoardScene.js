@@ -25,6 +25,16 @@ const X_DROP_DURATION_1 = 200
 const X_DROP_DURATION_2 = 80
 const O_SWIRL_DURATION = 320
 const FLASH_DURATION = 300
+const PULSE_PER_TILE_MS = 180
+const PULSE_DURATION_MS = 320
+const SHIMMER_DURATION_MS = 250
+const PARTICLES_PER_TILE = 18
+const CAMERA_SHAKE_WIN_MS = 220
+const CAMERA_SHAKE_INTENSITY = 0.0125
+const CAMERA_SHAKE_LOSS_INTENSITY = 0.008
+const DRAW_WIGGLE_DEG = 4
+const DRAW_WIGGLE_DURATION_MS = 80
+const PARTICLE_TEXTURE_PX = 10
 
 export class BoardScene extends Phaser.Scene {
   constructor(config = {}) {
@@ -81,6 +91,13 @@ export class BoardScene extends Phaser.Scene {
     glowGfx.fillRoundedRect(0, 0, glowSize, glowSize, TILE_RADIUS_PX + 6)
     glowGfx.generateTexture('glow', glowSize, glowSize)
     glowGfx.destroy()
+
+    // Particle (small white circle, tinted by emitter)
+    const partGfx = this.add.graphics()
+    partGfx.fillStyle(0xffffff, 1)
+    partGfx.fillCircle(PARTICLE_TEXTURE_PX / 2, PARTICLE_TEXTURE_PX / 2, PARTICLE_TEXTURE_PX / 2)
+    partGfx.generateTexture('particle', PARTICLE_TEXTURE_PX, PARTICLE_TEXTURE_PX)
+    partGfx.destroy()
   }
 
   #placeTiles(width, height, boardPx) {
@@ -228,9 +245,114 @@ export class BoardScene extends Phaser.Scene {
         existing.destroy()
         this.pieceSprites[i] = null
         const entry = this.tileSprites[i]
+        entry.sprite.setAngle(0)
+        entry.sprite.setScale(1.0)
+        entry.sprite.clearTint()
         entry.sprite.setInteractive({ useHandCursor: true })
         entry.breathingTween?.resume()
       }
     }
+  }
+
+  // Called from React when game state transitions to 'won' or 'draw'.
+  // outcome: { kind: 'win' | 'loss' | 'draw', winningLine?: number[] }
+  playOutcome(outcome) {
+    if (outcome.kind === 'win') {
+      this.#celebrateLine(outcome.winningLine, true)
+    } else if (outcome.kind === 'loss') {
+      this.#celebrateLine(outcome.winningLine, false)
+    } else if (outcome.kind === 'draw') {
+      this.#drawWiggle()
+    }
+  }
+
+  #celebrateLine(line, isPlayer) {
+    if (!line) return
+    const pulseColor = isPlayer ? COLORS.accent : COLORS.surface2
+    const particleColors = isPlayer
+      ? [COLORS.accent, COLORS.accent2]
+      : [COLORS.surface2, COLORS.textMuted]
+    const shakeIntensity = isPlayer ? CAMERA_SHAKE_INTENSITY : CAMERA_SHAKE_LOSS_INTENSITY
+
+    this.cameras.main.shake(CAMERA_SHAKE_WIN_MS, shakeIntensity)
+
+    // Line pulse, tile by tile
+    line.forEach((tileIndex, i) => {
+      this.time.delayedCall(i * PULSE_PER_TILE_MS, () => {
+        this.#pulseTile(tileIndex, pulseColor)
+      })
+    })
+
+    // After pulse, lift and shimmer the winning tiles + particle bursts
+    const shimmerDelay = line.length * PULSE_PER_TILE_MS
+    this.time.delayedCall(shimmerDelay, () => {
+      line.forEach((tileIndex) => {
+        const entry = this.tileSprites[tileIndex]
+        this.tweens.add({
+          targets: entry.sprite,
+          scale: 1.12,
+          duration: SHIMMER_DURATION_MS,
+          yoyo: true,
+          repeat: isPlayer ? 1 : 0,
+          ease: 'Sine.easeInOut',
+        })
+        this.#burstParticles(entry.x, entry.y, particleColors)
+      })
+    })
+  }
+
+  #pulseTile(index, color) {
+    const tile = this.tileSprites[index].sprite
+    const flashColor = Phaser.Display.Color.IntegerToColor(color)
+    const baseColor = Phaser.Display.Color.IntegerToColor(COLORS.surface)
+
+    this.tweens.addCounter({
+      from: 0,
+      to: 100,
+      duration: PULSE_DURATION_MS,
+      yoyo: true,
+      ease: 'Sine.easeInOut',
+      onUpdate: (tween) => {
+        const blended = Phaser.Display.Color.Interpolate.ColorWithColor(
+          baseColor,
+          flashColor,
+          100,
+          tween.getValue(),
+        )
+        tile.setTint(Phaser.Display.Color.GetColor(blended.r, blended.g, blended.b))
+      },
+      onComplete: () => tile.clearTint(),
+    })
+  }
+
+  #burstParticles(x, y, colors) {
+    const emitter = this.add.particles(x, y, 'particle', {
+      speed: { min: 140, max: 280 },
+      angle: { min: 220, max: 320 }, // upper hemisphere in Phaser angle space (270 = up)
+      scale: { start: 0.9, end: 0 },
+      alpha: { start: 1, end: 0 },
+      lifespan: { min: 600, max: 900 },
+      gravityY: 360,
+      tint: colors,
+      quantity: PARTICLES_PER_TILE,
+      emitting: false,
+    })
+    emitter.explode(PARTICLES_PER_TILE, x, y)
+    // Self-destruct after particles finish
+    this.time.delayedCall(1100, () => emitter.destroy())
+  }
+
+  #drawWiggle() {
+    this.tileSprites.forEach(({ sprite }) => {
+      this.tweens.add({
+        targets: sprite,
+        angle: { from: 0, to: DRAW_WIGGLE_DEG },
+        duration: DRAW_WIGGLE_DURATION_MS,
+        yoyo: true,
+        repeat: 3,
+        ease: 'Sine.easeInOut',
+        onComplete: () => sprite.setAngle(0),
+      })
+    })
   }
 }
