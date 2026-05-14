@@ -1,488 +1,400 @@
 {
-    "designSystem": {
-      "name": "Bold Modern Portfolio System",
-      "version": "1.0",
-      "description": "A design system characterized by bold typography, vibrant accent colors, asymmetric layouts, and dynamic visual elements",
-      
-      "colorPalette": {
-        "primary": {
-          "accent": "#FF6B35",
-          "accentDescription": "Vibrant coral/orange used for CTAs and emphasis",
-          "alternatives": ["#FF5722", "#FF7043", "#F4511E"]
-        },
-        "neutral": {
-          "dark": "#1A1A1A",
-          "darkDescription": "Deep black for backgrounds and text",
-          "light": "#FFFFFF",
-          "lightDescription": "Pure white for contrast and backgrounds",
-          "gray": "#F5F5F5",
-          "grayDescription": "Light gray for secondary backgrounds"
-        },
-        "usage": {
-          "backgrounds": ["dark", "light", "split-screen combinations"],
-          "text": ["dark on light", "light on dark", "accent for emphasis"],
-          "buttons": ["accent background with white text"]
-        }
+  "$schema": "https://bigcatsoftware.github.io/design-schema.json",
+  "version": "2.0.0",
+  "name": "BigCatSoftware Portfolio Design System",
+  "philosophy": "playful-tech",
+  "intendedFeelings": ["intrigued", "warmth"],
+
+  "tokens": {
+    "color": {
+      "bg":         { "value": "#eff1f5", "name": "Latte Base",     "role": "Primary page background" },
+      "surface":    { "value": "#ccd0da", "name": "Latte Surface0", "role": "Cards, panels, elevated content" },
+      "surface2":   { "value": "#bcc0cc", "name": "Latte Surface1", "role": "Borders, dividers, raised slabs" },
+      "text":       { "value": "#4c4f69", "name": "Latte Text",     "role": "Body and heading copy" },
+      "textMuted":  { "value": "#6c6f85", "name": "Latte Subtext0", "role": "Secondary copy, captions, kickers" },
+      "accent":     { "value": "#7287fd", "name": "Latte Lavender", "role": "Primary accent, links, CTAs, key highlights, X piece in tic tac toe" },
+      "accent2":    { "value": "#fe640b", "name": "Latte Peach",    "role": "Secondary accent, AI O piece, verify button on Lavender panel" },
+      "border":     { "value": "#bcc0cc", "name": "Latte Surface1", "role": "Component borders (same value as surface2 by intent)" },
+      "focusRing":  { "value": "#7287fd", "name": "Lavender",       "role": "Keyboard focus indicator" }
+    },
+
+    "font": {
+      "display": {
+        "family": "Newsreader",
+        "fallback": ["Georgia", "Times New Roman", "serif"],
+        "axes": ["opsz", "wght"],
+        "role": "Section headings, hero display type, lead paragraphs"
       },
-      
-      "typography": {
-        "hierarchy": {
-          "hero": {
-            "weight": "800-900",
-            "style": "Extra bold, condensed or extended",
-            "size": "clamp(48px, 8vw, 120px)",
-            "lineHeight": "0.9-1.1",
-            "characteristics": ["All caps or title case", "High impact", "Letter spacing: tight to normal"]
-          },
-          "headline": {
-            "weight": "700-800",
-            "size": "clamp(32px, 5vw, 64px)",
-            "lineHeight": "1.1-1.2",
-            "characteristics": ["Bold and commanding", "Mixed case acceptable"]
-          },
-          "subheadline": {
-            "weight": "400-600",
-            "size": "clamp(18px, 2.5vw, 28px)",
-            "lineHeight": "1.4-1.6",
-            "characteristics": ["Regular to semi-bold", "Readable and clear"]
-          },
-          "body": {
-            "weight": "400",
-            "size": "16-18px",
-            "lineHeight": "1.5-1.7",
-            "characteristics": ["Clean sans-serif", "Comfortable reading"]
-          },
-          "script": {
-            "weight": "400",
-            "style": "Cursive/handwritten",
-            "usage": "Accent text, small decorative phrases",
-            "size": "clamp(16px, 2vw, 24px)"
-          }
-        },
-        "fontPairings": {
-          "option1": {
-            "display": "Modern sans-serif, geometric or condensed",
-            "body": "Clean sans-serif with good readability",
-            "accent": "Handwritten or script for personality"
-          },
-          "examples": ["Montserrat/Open Sans", "Bebas Neue/Lato", "Oswald/Roboto"]
-        },
-        "textTreatments": {
-          "emphasis": ["Accent color on key words/phrases", "Bold weight changes", "Size variations within headlines"],
-          "effects": ["Tight letter spacing for impact", "Normal to wide spacing for elegance", "Mixed typography styles in single headline"]
-        }
+      "body": {
+        "family": "Inter",
+        "fallback": ["system-ui", "-apple-system", "sans-serif"],
+        "role": "Body copy, paragraphs, button labels, captions"
       },
-      
-      "layout": {
-        "structure": {
-          "grid": "12-column responsive grid",
-          "breakpoints": {
-            "mobile": "320px-768px",
-            "tablet": "768px-1024px",
-            "desktop": "1024px+"
-          },
-          "patterns": [
-            {
-              "name": "Asymmetric Split",
-              "description": "60/40 or 70/30 split with content and visuals",
-              "usage": "Hero sections, feature highlights"
-            },
-            {
-              "name": "Diagonal Flow",
-              "description": "Content arranged in diagonal or Z-pattern",
-              "usage": "Multi-section layouts, storytelling"
-            },
-            {
-              "name": "Card Grid",
-              "description": "Responsive grid of cards with consistent spacing",
-              "usage": "Portfolio items, project showcases"
-            }
-          ]
-        },
-        "spacing": {
-          "scale": "8px base unit",
-          "values": ["8px", "16px", "24px", "32px", "48px", "64px", "96px", "128px"],
-          "usage": {
-            "tight": "8-16px for related elements",
-            "comfortable": "24-48px for section padding",
-            "generous": "64-128px for major section breaks"
-          }
-        },
-        "composition": {
-          "principles": [
-            "Asymmetric balance over symmetric",
-            "Generous whitespace around key elements",
-            "Overlapping elements for depth",
-            "Diagonal lines and arrows for flow",
-            "Breaking grid boundaries intentionally"
-          ],
-          "visualFlow": [
-            "Z-pattern for left-to-right reading",
-            "Arrows and connecting lines between elements",
-            "Progressive disclosure of content",
-            "Clear visual hierarchy with size and color"
-          ]
-        }
+      "mono": {
+        "family": "JetBrains Mono",
+        "fallback": ["ui-monospace", "SFMono-Regular", "monospace"],
+        "role": "Kickers, credential IDs, technical accents, code"
+      }
+    },
+
+    "scale": {
+      "displayHero":      { "size": "clamp(4rem, 10vw, 8rem)", "weight": 700, "tracking": "-0.02em", "lineHeight": 1.05 },
+      "displayHeading":   { "size": "clamp(2.5rem, 4vw, 3.75rem)", "weight": 600, "tracking": "-0.01em", "lineHeight": 1.15 },
+      "lead":             { "size": "clamp(1.25rem, 1.6vw, 1.5rem)", "weight": 400, "lineHeight": 1.7 },
+      "body":             { "size": "1rem", "weight": 400, "lineHeight": 1.7 },
+      "bodyLarge":        { "size": "1.125rem", "weight": 400, "lineHeight": 1.75 },
+      "kicker":           { "size": "0.75rem", "weight": 500, "tracking": "0.22em", "transform": "uppercase" },
+      "credentialCode":   { "size": "clamp(2rem, 4vw, 3rem)", "weight": 500, "tracking": "0.05em" },
+      "caption":          { "size": "0.875rem", "weight": 400 }
+    },
+
+    "spacing": {
+      "sectionPaddingAiry":     { "value": "py-32 md:py-44", "appliesTo": ["Hero", "Credentials"] },
+      "sectionPaddingBalanced": { "value": "py-24 md:py-28", "appliesTo": ["About", "FeaturedWork", "TicTacToe", "Contact"] },
+      "interSectionGap":        { "value": "none", "note": "Sections own their own vertical padding; no extra gap between them" },
+      "componentGap":           { "value": "space-y-6 to space-y-10", "note": "Stacked children within a component" },
+      "longFormRowGap":         { "value": "space-y-20", "note": "Featured Work long-form list rows" }
+    },
+
+    "radius": {
+      "sm":  "6px",
+      "md":  "10px",
+      "lg":  "14px",
+      "xl":  "16px",
+      "2xl": "24px"
+    },
+
+    "shadow": {
+      "soft":       "0 2px 8px rgba(76, 79, 105, 0.06), 0 1px 2px rgba(76, 79, 105, 0.04)",
+      "lifted":     "0 8px 24px rgba(76, 79, 105, 0.08), 0 2px 6px rgba(76, 79, 105, 0.05)",
+      "accentGlow": "0 12px 36px rgba(114, 135, 253, 0.25), 0 2px 8px rgba(114, 135, 253, 0.12)",
+      "innerSeat":  "inset 0 1px 0 rgba(255, 255, 255, 0.6)"
+    },
+
+    "motion": {
+      "duration": {
+        "instant": "0ms",
+        "fast":    "180ms",
+        "base":    "280ms",
+        "medium":  "450ms",
+        "slow":    "600ms",
+        "ambient": "20000ms"
       },
-      
-      "components": {
-        "buttons": {
-          "primary": {
-            "background": "accent color",
-            "text": "white",
-            "padding": "16px 32px",
-            "borderRadius": "4px-8px",
-            "fontSize": "14-16px",
-            "fontWeight": "600-700",
-            "textTransform": "uppercase or title case",
-            "hover": "Darken 10%, scale 1.02, or add shadow"
-          },
-          "secondary": {
-            "background": "transparent",
-            "border": "2px solid accent or white",
-            "text": "accent or white",
-            "padding": "14px 30px",
-            "hover": "Fill with accent color, white text"
-          },
-          "ghost": {
-            "background": "transparent",
-            "text": "accent color",
-            "underline": "optional on hover",
-            "hover": "Shift color slightly or add arrow"
-          }
-        },
-        "cards": {
-          "structure": {
-            "background": "white or dark",
-            "border": "none or subtle 1px",
-            "borderRadius": "8px-16px",
-            "padding": "24-32px",
-            "shadow": "0 4px 16px rgba(0,0,0,0.08) on light, 0 4px 16px rgba(255,255,255,0.05) on dark"
-          },
-          "content": [
-            "Image or icon at top (optional)",
-            "Title (headline typography)",
-            "Description (body typography)",
-            "CTA button or link at bottom"
-          ],
-          "hover": "Lift with shadow increase, scale 1.02, or accent border"
-        },
-        "navigation": {
-          "header": {
-            "position": "fixed or sticky top",
-            "background": "white, dark, or transparent with blur",
-            "height": "60-80px",
-            "layout": "Logo left, nav center/right, CTA button right",
-            "style": "Minimal, clean, with accent color on active/hover"
-          },
-          "menu": {
-            "items": "4-7 primary links",
-            "typography": "14-16px, 600 weight, uppercase or title case",
-            "spacing": "24-40px between items",
-            "active": "Accent color, underline, or bold"
-          },
-          "mobile": {
-            "toggle": "Hamburger icon",
-            "menu": "Full screen overlay or slide-in panel",
-            "background": "Dark or white with overlay"
-          }
-        },
-        "imageContainers": {
-          "treatments": [
-            "Rounded corners (8-16px)",
-            "Colored overlays with blend modes",
-            "Diagonal or angled edges",
-            "Overflow visible for layering",
-            "Border frames with accent colors"
-          ],
-          "integration": [
-            "Overlapping text and images",
-            "Images breaking out of containers",
-            "Decorative graphic elements around images",
-            "Asymmetric positioning"
-          ]
-        },
-        "decorativeElements": {
-          "types": [
-            {
-              "name": "Geometric Shapes",
-              "examples": ["Circles", "Squares", "Triangles", "Lines"],
-              "usage": "Background elements, connectors, accents",
-              "style": "Filled with accent color or outlined"
-            },
-            {
-              "name": "Icons",
-              "style": "Line icons or simple filled",
-              "size": "24-48px",
-              "color": "Accent or brand colors",
-              "usage": "Feature highlights, social media, decorative accents"
-            },
-            {
-              "name": "Arrows & Connectors",
-              "style": "Hand-drawn or geometric",
-              "purpose": "Guide eye flow, connect related elements",
-              "color": "Dark or accent"
-            },
-            {
-              "name": "Emoji/Illustrations",
-              "style": "Modern, friendly, minimal",
-              "usage": "Add personality, break up text",
-              "placement": "Scattered asymmetrically"
-            }
-          ]
-        }
+      "easing": {
+        "smoothOut":      "cubic-bezier(0.22, 1, 0.36, 1)",
+        "snappy":         "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "linear":         "linear",
+        "springGentle":   { "type": "spring", "stiffness": 200, "damping": 24 },
+        "springBouncy":   { "type": "spring", "stiffness": 300, "damping": 18 }
       },
-      
-      "sections": {
-        "hero": {
-          "layout": "Full viewport height or 70-80vh",
-          "structure": [
-            "Large headline with mixed typography",
-            "Supporting subheadline",
-            "Primary CTA button",
-            "Hero image or video background",
-            "Decorative elements"
-          ],
-          "variations": [
-            "Split screen: text left, visual right",
-            "Centered with background visual",
-            "Asymmetric with overlapping elements",
-            "Diagonal division"
-          ],
-          "backgroundOptions": [
-            "Solid color (light or dark)",
-            "Image with overlay",
-            "Gradient",
-            "Video background"
-          ]
-        },
-        "about": {
-          "layout": "2-column on desktop, stacked on mobile",
-          "content": [
-            "Profile image with creative framing",
-            "Bio text with personality",
-            "Key stats or highlights",
-            "Skills or values",
-            "Secondary CTA"
-          ],
-          "style": "Personal, warm, authentic with visual interest"
-        },
-        "portfolio": {
-          "layout": "Grid (2-3 columns) or masonry",
-          "cardStructure": [
-            "Project thumbnail",
-            "Project title",
-            "Brief description",
-            "Tags or categories",
-            "View project link/button"
-          ],
-          "hover": "Reveal more info, scale, or show overlay",
-          "filters": "Optional category tabs or filters"
-        },
-        "testimonials": {
-          "layout": "Carousel, grid, or staggered",
-          "content": [
-            "Quote text",
-            "Author name",
-            "Author title/company",
-            "Optional photo",
-            "Optional rating"
-          ],
-          "style": "Cards with subtle shadows, serif for quotes optional"
-        },
-        "contact": {
-          "layout": "Form and info side by side or stacked",
-          "elements": [
-            "Contact form (name, email, message)",
-            "Contact information (email, phone, social)",
-            "CTA headline",
-            "Submit button"
-          ],
-          "style": "Clean, accessible, with clear labels"
-        },
-        "footer": {
-          "layout": "Multi-column or single row",
-          "content": [
-            "Logo or name",
-            "Navigation links",
-            "Social media icons",
-            "Copyright",
-            "Optional newsletter signup"
-          ],
-          "style": "Dark background common, minimal, organized"
-        }
+      "respectReducedMotion": true
+    }
+  },
+
+  "sectionApplicationRules": {
+    "rule": "One section gets the bold Lavender panel: Credentials. All others use Lavender as accent on neutral Base.",
+    "perSection": {
+      "Hero":         { "background": "bg",          "accentUse": "Primary CTA fill, name kicker, ambient gradient",   "density": "airy" },
+      "About":        { "background": "bg",          "accentUse": "Section heading, italicized phrases",               "density": "balanced" },
+      "FeaturedWork": { "background": "bg",          "accentUse": "Card hover borders, View source links, BNB tag",   "density": "balanced" },
+      "TicTacToe":    { "background": "bg",          "accentUse": "Player X, winning tile pulse, particle bursts",     "density": "balanced" },
+      "Credentials":  { "background": "accent",      "accentUse": "Full Lavender panel; Peach for verify button",     "density": "airy" },
+      "Contact":      { "background": "bg",          "accentUse": "Social link hover states",                          "density": "balanced" },
+      "Footer":       { "background": "bg",          "accentUse": "None; muted text only",                             "density": "minimal" }
+    }
+  },
+
+  "components": {
+    "Hero": {
+      "layout": "asymmetric",
+      "structure": {
+        "mdAndUp":  "two-column-grid: portrait-left ~45% / text-right ~55%",
+        "mobile":   "stacked: portrait above text"
       },
-      
-      "interactions": {
-        "hover": [
-          "Color transitions (0.3s ease)",
-          "Scale transforms (1.02-1.05)",
-          "Shadow depth changes",
-          "Underline reveals",
-          "Icon animations"
-        ],
-        "scroll": [
-          "Parallax effects on backgrounds",
-          "Fade in animations for sections",
-          "Sticky navigation",
-          "Progress indicators",
-          "Reveal animations (slide, fade, scale)"
-        ],
-        "click": [
-          "Button press effect (scale 0.98)",
-          "Ripple effects",
-          "Page transitions",
-          "Modal overlays",
-          "Smooth scroll to sections"
-        ],
-        "loading": [
-          "Skeleton screens",
-          "Animated loaders with brand colors",
-          "Progressive image loading",
-          "Fade in content"
+      "portrait": {
+        "src":      "/tiger_graduation_square_crop.jpg",
+        "alt":      "Tiger Schueler receiving his diploma at UW Tacoma graduation.",
+        "radius":   "2xl",
+        "border":   "1px solid var(--color-border)",
+        "shadow":   "lifted",
+        "rotation": "-2deg",
+        "maxWidth": "480px"
+      },
+      "text": {
+        "kicker":     { "content": "TIGER SCHUELER", "style": "kicker", "color": "textMuted" },
+        "heading":    { "content": "Building production data infrastructure in C# and .NET. Quietly, durably, well.", "style": "displayHero", "color": "text" },
+        "subheading": { "content": "Data Engineer at BNBuilders, Pacific Northwest.", "style": "lead", "color": "textMuted" },
+        "ctas": [
+          { "label": "View Work",     "href": "#work",    "style": "filled-accent",   "icon": "ArrowRight" },
+          { "label": "Get In Touch",  "href": "#contact", "style": "ghost-outline",   "icon": null }
         ]
       },
-      
-      "responsiveStrategy": {
-        "approach": "Mobile-first design",
-        "adaptations": {
-          "mobile": [
-            "Single column layouts",
-            "Stacked sections",
-            "Simplified navigation (hamburger)",
-            "Touch-optimized buttons (min 44px)",
-            "Reduced decorative elements"
-          ],
-          "tablet": [
-            "2-column grids where appropriate",
-            "Maintained visual hierarchy",
-            "Optimized image sizes",
-            "Adjusted typography scale"
-          ],
-          "desktop": [
-            "Multi-column layouts",
-            "Full decorative elements",
-            "Hover interactions",
-            "Asymmetric compositions",
-            "Generous spacing"
-          ]
+      "ambient": {
+        "type":     "radial-gradient",
+        "from":     "accent",
+        "to":       "accent2",
+        "opacity":  0.18,
+        "motion":   "drift on 20s loop via animated background-position"
+      }
+    },
+
+    "About": {
+      "layout":  "two-column-grid: heading-left max-content / prose-right max-w-2xl",
+      "heading": { "content": "About", "style": "displayHeading" },
+      "prose": [
+        "I'm a Data Engineer in the Pacific Northwest. By day I'm in C# and T-SQL, building production data infrastructure at BNBuilders. The current main project is a .NET 10 ETL platform I built from scratch to move hundreds of millions of rows a day from Oracle ERP into Azure SQL.",
+        "Background: B.S. in Computer Science & Systems from UW Tacoma with a math minor, four years in the Navy before that as a Mount Captain on a .50 cal crew, and a few years before *that* teaching martial arts (3rd Dan ITF black belt).",
+        "Off the clock, I'm a husband and father of two. I'm a Christian; I read scripture, theology, and the church fathers, and keep a steady stack of programming and software books going on the side. When there's time left, I'm either tinkering with passion projects in Godot (Mono build, C# scripting, with shader coding on the list) or replaying old Nintendo games on the Switch."
+      ],
+      "motion": "fade-up stagger on scroll (heading, then each paragraph), 80ms stagger"
+    },
+
+    "FeaturedWork": {
+      "layout": "long-form-list",
+      "kicker": "SELECTED",
+      "heading": "Featured Work",
+      "rows": [
+        {
+          "id": "bnb-etl",
+          "title": "ETL Pipeline Platform",
+          "orgTag": "BNBUILDERS",
+          "summary": "Production data infrastructure replacing a third-party SaaS sync tool.",
+          "tags": ["C#", ".NET 10", "ASP.NET Core MVC", "T-SQL", "Azure SQL", "Oracle"],
+          "description": "A .NET 10 ETL platform I built from scratch that moves hundreds of millions of rows a day from Oracle ERP into Azure SQL. ASP.NET Core MVC operator console for monitoring runs and queueing reruns.",
+          "thumbnail": { "type": "svg-illustration", "concept": "abstract data-flow lines" },
+          "repoUrl": null
         },
-        "typography": {
-          "mobile": "Base 16px, scale down hero by 40-50%",
-          "tablet": "Base 16px, scale down hero by 20-30%",
-          "desktop": "Base 16-18px, full hero size"
+        {
+          "id": "sha3",
+          "title": "SHA3-SHAKE Cryptographic Library",
+          "summary": "FIPS 202 compliant SHA-3 and SHAKE implementation in Java.",
+          "tags": ["Java", "Cryptography", "FIPS 202", "SHA-3 / SHAKE"],
+          "description": "SHA-3 and SHAKE implementation conforming to FIPS 202, with an optimized Keccak-f[1600] permutation. CLI for file hashing and MAC generation, validated against the full NIST test vector suite.",
+          "thumbnail": { "type": "svg-illustration", "concept": "stylized hash block / Keccak sponge" },
+          "repoUrl": "https://github.com/BigCatSoftware/sha3-shake-library"
         },
-        "spacing": {
-          "mobile": "Reduce by 30-50%",
-          "tablet": "Reduce by 15-25%",
-          "desktop": "Full spacing scale"
+        {
+          "id": "jminus",
+          "title": "j-- Compiler Extensions",
+          "summary": "Java-subset compiler extended across scanner, parser, and AST.",
+          "tags": ["Java", "Compiler Design", "AST", "Parsing"],
+          "description": "Extensions to a Java-subset compiler: scanner support for multi-line comments and numeric literals, additional grammar rules in the parser, and new AST nodes for conditionals, loops, and exception handling.",
+          "thumbnail": { "type": "svg-illustration", "concept": "tokenized code snippet in JetBrains Mono on Surface0" },
+          "repoUrl": "https://github.com/BigCatSoftware/j--"
+        },
+        {
+          "id": "dungeon",
+          "title": "Procedural Dungeon Generation",
+          "summary": "LibGDX dungeon crawler with BSP-generated levels.",
+          "tags": ["Java", "LibGDX", "BSP Algorithm", "Procedural Generation"],
+          "description": "A LibGDX dungeon crawler with procedurally generated levels. A Binary Space Partitioning tree recursively subdivides a 50×50 grid into rectangular leaves; each leaf becomes a room, and doors are placed where adjacent rooms share a wall.",
+          "thumbnail": { "type": "svg-illustration", "concept": "simplified BSP visualization, nested rectangles" },
+          "repoUrl": "https://github.com/BigCatSoftware/Dungeon-Adventure"
         }
-      },
-      
-      "brandPersonality": {
-        "attributes": [
-          "Bold and confident",
-          "Modern and innovative",
-          "Personal and authentic",
-          "Professional yet approachable",
-          "Energetic and dynamic"
-        ],
-        "visualExpression": [
-          "Strong typography hierarchy",
-          "Vibrant accent colors",
-          "Generous whitespace",
-          "Playful decorative elements",
-          "High-quality imagery",
-          "Asymmetric balance"
-        ],
-        "tone": {
-          "headlines": "Bold, action-oriented, clear",
-          "body": "Conversational, clear, professional",
-          "CTAs": "Direct, motivating, benefit-focused"
-        }
-      },
-      
-      "implementationNotes": {
-        "technologies": [
-          "HTML5 semantic markup",
-          "CSS Grid and Flexbox",
-          "CSS custom properties for theming",
-          "Responsive images with srcset",
-          "Intersection Observer for scroll animations",
-          "Transform and transition for interactions"
-        ],
-        "performance": [
-          "Optimize images (WebP, lazy loading)",
-          "Minimize CSS and JS",
-          "Use system fonts or limit custom fonts to 2-3",
-          "Defer non-critical resources",
-          "Mobile-first CSS"
-        ],
-        "accessibility": [
-          "Semantic HTML",
-          "ARIA labels where needed",
-          "Keyboard navigation",
-          "Sufficient color contrast (WCAG AA minimum)",
-          "Focus indicators",
-          "Alt text for images",
-          "Form labels"
-        ]
-      },
-      
-      "portfolioSpecificGuidelines": {
-        "heroSection": {
-          "formula": "Name + Title/Specialty + Unique Value Proposition",
-          "example": "[YOUR NAME] in bold hero typography, [YOUR ROLE] in subheadline, brief compelling statement about what makes you unique",
-          "visualTreatment": "Professional photo or relevant imagery, accent color highlights on key words"
-        },
-        "aboutSection": {
-          "content": [
-            "Professional background summary",
-            "Education highlights",
-            "Key skills visualization",
-            "Personal interests/values (optional)",
-            "Download resume CTA"
-          ],
-          "dataIntegration": "Extract from resume PDF, LinkedIn profile for consistency"
-        },
-        "projectsSection": {
-          "projectCardInfo": [
-            "Project title",
-            "Technologies used",
-            "Brief description",
-            "Link to live demo or GitHub",
-            "Thumbnail/screenshot"
-          ],
-          "sourceData": "Extract from GitHub repositories, filter by stars/activity, showcase top 6-9 projects"
-        },
-        "skillsSection": {
-          "presentation": [
-            "Categorized skill groups (Languages, Data Science)",
-            "Visual representation (bars, icons, tags)",
-            "Proficiency indicators (optional)"
-          ],
-          "extraction": "Compile from resume, LinkedIn, GitHub language statistics"
-        },
-        "educationSection": {
-          "content": [
-            "Degree and institution",
-            "Graduation date",
-            "GPA or honors (if notable)",
-            "Relevant coursework",
-            "Transcript link (optional)"
-          ],
-          "styling": "Card layout or timeline, diploma imagery optional"
-        },
-        "contactSection": {
-          "elements": [
-            "Email address",
-            "LinkedIn profile link",
-            "GitHub profile link",
-            "Optional: Twitter, personal social media",
-            "Contact form as alternative"
-          ],
-          "CTAFocus": "Make it easy to connect, clear next steps"
+      ],
+      "rowStyle": {
+        "layout": "two-column: thumbnail ~30% / content ~70%",
+        "verticalGap": "space-y-20",
+        "thumbnailContainer": { "radius": "xl", "background": "surface", "padding": "p-8" },
+        "hover": {
+          "tilt":        { "enabled": true, "maxDeg": 6, "follow": "cursor", "spring": "springGentle" },
+          "thumbBorder": "1px solid accent",
+          "linkSlide":   "View source slides right 4px"
         }
       }
+    },
+
+    "TicTacToe": {
+      "engine": "phaser-3",
+      "renderingTarget": "2d-canvas",
+      "kicker": "AN ASIDE",
+      "heading": "Tic Tac Toe.",
+      "leadIn": "Three in a row. You are X.",
+      "scene": {
+        "board": {
+          "size": "3x3",
+          "tileColor": "surface",
+          "tileBorder": "1px solid surface2",
+          "tileRadius": "md",
+          "restingAnimation": "subtle breathing scale 1.0 to 1.02, staggered across tiles",
+          "hover": {
+            "tileScale": 1.05,
+            "glow": "soft Lavender beneath tile"
+          }
+        },
+        "pieces": {
+          "X": {
+            "color": "accent",
+            "entrance": "drop with bounce, scale 0.3 to 1.1 to 1.0 over 280ms",
+            "onPlace": "tile flashes accent briefly, click sound fires"
+          },
+          "O": {
+            "color": "accent2",
+            "entrance": "swirl in, rotation -180 to 0 plus scale 0 to 1 over 320ms",
+            "onPlace": "tile flashes accent2 briefly, ai-click sound fires"
+          }
+        },
+        "win": {
+          "linePulse": "Lavender pulse travels along winning line, tile by tile",
+          "shimmer": "winning tiles lift and shimmer after pulse",
+          "particles": {
+            "perTile": 18,
+            "colors": ["accent", "accent2"],
+            "trajectory": "hemisphere arc with gravity"
+          },
+          "cameraShake": { "amplitude": "6px", "duration": "220ms" }
+        },
+        "loss": "winning AI line shows desaturated grey, muted particles",
+        "draw": "all tiles coordinated wiggle then settle",
+        "thirdSessionWin": {
+          "trigger": "session win count reaches 3",
+          "modal": "VictoryMaster overlay (React, rendered above Phaser canvas)",
+          "audio": "playVictorySounds() 2s after celebration",
+          "counterPersists": false,
+          "note": "counter is session-only React state; resets on page reload"
+        }
+      },
+      "audio": {
+        "ownership": "useSound hook in React; Phaser triggers via callbacks",
+        "events": {
+          "playerPlacesX":         "playClickSound(true)",
+          "aiPlacesO":             "playClickSound(false) after 1s",
+          "playerWins":            "playCelebrationSounds()",
+          "thirdSessionWin":       "playVictorySounds() 2s after celebration",
+          "victoryMasterBackdrop": "playVictorySounds() (mobile gesture replay)",
+          "aiWins":                "silent",
+          "draw":                  "silent",
+          "newGame":               "silent"
+        },
+        "implementation": "ported verbatim from current oscillator/noise routines; do not re-bake or replace"
+      },
+      "controls": {
+        "newGameButton": { "label": "New Game", "style": "ghost-outline", "behavior": "clears board and status, preserves session win counter" }
+      },
+      "accessibility": {
+        "ariaLabel": "Interactive tic tac toe game",
+        "skipLink":  "Keyboard-visible Skip Game link that anchors past the section"
+      }
+    },
+
+    "Credentials": {
+      "background": "accent",
+      "kicker": "VERIFIABLE CREDENTIALS",
+      "heading": "Credentials",
+      "context": "B.S. Computer Science & Systems · University of Washington Tacoma · August 2025",
+      "kickerColor": "bg",
+      "headingColor": "bg",
+      "contextColor": "bg-80",
+      "widget": {
+        "card": {
+          "background": "surface",
+          "radius": "2xl",
+          "padding": "p-8 md:p-12",
+          "maxWidth": "720px",
+          "shadow": "lifted"
+        },
+        "credentialDisplay": {
+          "label": { "content": "CREDENTIAL ID", "style": "kicker", "color": "textMuted" },
+          "code":  { "content": "25C9-NTAN-TNRJ", "style": "credentialCode", "color": "accent" },
+          "codeAnimation": "character-by-character fade-in on scroll into view, 60ms stagger left to right"
+        },
+        "statusLine": {
+          "initial": { "content": "Awaiting verification...", "color": "textMuted" },
+          "sequence": [
+            { "content": "Connecting to UW Registrar...", "color": "textMuted",     "delayMs": 0 },
+            { "content": "Validating credential ID...",   "color": "textMuted",     "delayMs": 400 },
+            { "content": "Verified ✓",                    "color": "accent",        "delayMs": 800, "confetti": true }
+          ]
+        },
+        "verifyButton": {
+          "initial":    { "label": "Verify Credential", "style": "filled-accent2", "icon": "ShieldCheck" },
+          "loading":    { "label": "Verifying...",      "style": "filled-accent2", "icon": "spinner",     "durationMs": 1200 },
+          "completed":  { "label": "Open verification on UW Registrar →", "style": "filled-accent2", "icon": null, "href": "https://apps.registrar.washington.edu/cecredential/verify/", "target": "_blank", "rel": "noopener noreferrer" }
+        },
+        "footerCaption": { "content": "Verification powered by UW Registrar.", "style": "kicker", "color": "textMuted" }
+      },
+      "diploma": {
+        "src": "/diploma_image.png",
+        "alt": "Tiger Schueler's University of Washington Tacoma diploma.",
+        "radius": "xl",
+        "border": "1px solid surface2",
+        "shadow": "soft",
+        "position": "below widget on mobile, beside widget on md+"
+      },
+      "resume": {
+        "embedDesktop": "<object data=\"/Tiger_Schueler_Software_Engineer_Resume.pdf\" type=\"application/pdf\"> with <iframe> fallback",
+        "embedMobile":  "Open Resume card with FileText icon, opens PDF in new tab",
+        "downloadButton": { "label": "Download PDF", "style": "filled-accent", "href": "/Tiger_Schueler_Software_Engineer_Resume.pdf", "downloadAttr": true },
+        "position": "below widget, distinctly secondary"
+      }
+    },
+
+    "Contact": {
+      "heading": "Get In Touch",
+      "subline": "For collaborations, hiring conversations, or just to say hello.",
+      "links": [
+        { "label": "Email",    "href": "mailto:tiger.schueler.dev@gmail.com",        "icon": "Mail",        "iconType": "lucide" },
+        { "label": "LinkedIn", "href": "https://www.linkedin.com/in/tigerschueler/", "icon": "Linkedin",    "iconType": "lucide-or-inline" },
+        { "label": "GitHub",   "href": "https://github.com/BigCatSoftware",           "icon": "GithubMark", "iconType": "inline-svg" }
+      ],
+      "linkStyle": "ghost-outline, Lavender border on hover, icon translate-y -2px on hover, 220ms"
+    },
+
+    "Footer": {
+      "content": "Built by Tiger Schueler · React · Phaser · Tailwind · 2026",
+      "techLinks": {
+        "React":    "https://react.dev",
+        "Phaser":   "https://phaser.io",
+        "Tailwind": "https://tailwindcss.com"
+      },
+      "color": "textMuted",
+      "alignment": "center",
+      "size": "caption"
     }
-  }
+  },
+
+  "motionRules": {
+    "entrance": {
+      "trigger": "scroll into view, once per session",
+      "transform": "translateY(16px) to translateY(0)",
+      "opacity": "0 to 1",
+      "durationMs": 600,
+      "easing": "smoothOut",
+      "stagger": "70-90ms between siblings"
+    },
+    "ambient": {
+      "heroGradientDrift": "20s loop, animated background-position, low opacity"
+    },
+    "reducedMotion": {
+      "behavior": "all motion collapsed to instant state changes",
+      "hard-requirement": true
+    }
+  },
+
+  "accessibility": {
+    "wcagTarget": "AA",
+    "lighthouseAccessibilityFloor": 95,
+    "keyboardNavigable": true,
+    "focusRingVisible": true,
+    "skipLinks": ["Skip game (above Tic Tac Toe section)"],
+    "altTextRequired": true,
+    "decorativeElementsAriaHidden": true
+  },
+
+  "performance": {
+    "lighthousePerformanceFloor": { "desktop": 90, "mobile": 80 },
+    "lazyLoad": ["TicTacToe (Phaser section, via React.lazy + IntersectionObserver)", "Below-the-fold images"],
+    "fontLoading": "font-display: swap with preconnect to Google Fonts",
+    "noThirdPartyTrackers": true
+  },
+
+  "outOfScope": [
+    "Top navigation bar",
+    "Dark mode toggle",
+    "Blog or writing section",
+    "Social media embeds",
+    "Custom cursor",
+    "Page transitions (single-page site, N/A)",
+    "Loading screens"
+  ]
+}
